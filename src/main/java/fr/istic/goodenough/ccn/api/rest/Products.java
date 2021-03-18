@@ -34,7 +34,7 @@ public class Products {
 	}
 	private ProductDTO makeProductDTO(Product product) {
 		return new ProductDTO(Integer.toHexString(product.hashCode()),
-				product.getFullName(),product.getCurrentPrice());
+				product.getFullName(),product.getPrice());
 	}
 
 	@GET

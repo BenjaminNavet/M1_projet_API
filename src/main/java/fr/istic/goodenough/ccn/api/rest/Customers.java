@@ -6,13 +6,9 @@ import java.util.Collections;
 import java.util.logging.Logger;
 
 import javax.inject.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import fr.istic.goodenough.ccn.api.engine.Customer;
 import fr.istic.goodenough.ccn.api.engine.Engine;
@@ -26,7 +22,7 @@ public class Customers {
 	private Engine engine;
 	
 	private Collection<CustomerDTO> getAllCustomers() {
-		Collection<CustomerDTO> customerDTOs = new ArrayList<CustomerDTO>();
+		Collection<CustomerDTO> customerDTOs = new ArrayList<>();
 		for(Customer c : engine.getAllCustomers()) {
 			CustomerDTO dto = makeCustomerDTO(c);
 			customerDTOs.add(dto);
@@ -42,7 +38,7 @@ public class Customers {
 	
 	private CustomerDTO makeCustomerDTO(Customer customer) {
 		return new CustomerDTO(Integer.toHexString(customer.hashCode()),
-				customer.getName(),customer.getCredit());
+				customer.getName()/*,customer.getCredit()*/);
 	}
 	
 	// ---- REST API --------
@@ -60,6 +56,13 @@ public class Customers {
 		
 		return null; // HACK Return the proper error code instead
 
+	}
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("test")
+	public String test(@DefaultValue("pouet") @QueryParam("name") String name){
+			return "coucou " + name;
 	}
 
 	@POST
