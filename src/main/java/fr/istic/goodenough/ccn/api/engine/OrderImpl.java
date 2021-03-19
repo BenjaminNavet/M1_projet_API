@@ -85,6 +85,6 @@ public class OrderImpl implements Order{
      * @return true if cancel is success, false if not */
     @Override
     public boolean cancel() {
-        return false;
+       return this.getProduct().putInStock(this.getAmount());
     }
 }
