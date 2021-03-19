@@ -5,21 +5,21 @@ public class OrderImpl implements Order{
      * @return related customer object */
     @Override
     public Customer getCustomer() {
-        return null;
+        return customer;
     }
 
     /** Get product related to this order
      * @return related product object */
     @Override
     public Product getProduct() {
-        return null;
+        return product;
     }
 
     /** Get the amount of product this order contains
      * @return amount of product */
     @Override
     public int getAmount() {
-        return 0;
+        return amount;
     }
 
     /** Define the amount of product this order must contains.
@@ -31,6 +31,26 @@ public class OrderImpl implements Order{
      * @return true if product amount in order was successfully modified, false if not. */
     @Override
     public boolean setAmount(int amount) {
+        if (this.product.getStock()==-1){
+            this.amount = amount;
+            return true;
+        }
+        if (this.product.getStock()!=-1){
+            if (this.product.getStock()<amount) {
+                return false;
+            }
+            else {
+                this.amount = amount;
+                return true;
+            }
+        }
+
+        if (amount < this.amount) {
+            this.amount += amount;
+        }
+        else {
+            this.amount -= amount;
+        }
         return false;
     }
 
@@ -38,7 +58,7 @@ public class OrderImpl implements Order{
      * @return total price of the order */
     @Override
     public double getOrderPrice() {
-        return 0;
+        return this.product.getPrice()*amount;
     }
 
     /** Cancel this order by putting the amount of product in the order back in the product stock

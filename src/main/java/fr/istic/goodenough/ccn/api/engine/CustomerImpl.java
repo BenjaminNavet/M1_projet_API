@@ -11,11 +11,21 @@ import java.util.LinkedList;
 public class CustomerImpl implements Customer {
 
     private String name;
+    private int uid;
     double credit;
     private Collection<Order> pendingOrders;
+    private String passwd;
 
-    public CustomerImpl(String name) {
+    /**
+     * Constructor Customer
+     * @param name the client's name
+     * @param passwd the client's password
+     * @param uid the client's id
+     */
+    public CustomerImpl(String name, String passwd, int uid) {
         this.name = name;
+        this.passwd = passwd;
+        this.uid = uid;
         this.credit = -1;
         pendingOrders = new LinkedList<>();
     }
@@ -24,7 +34,7 @@ public class CustomerImpl implements Customer {
      * @return customer uid */
     @Override
     public int getUid() {
-        return 0;
+        return uid;
     }
 
     /** Get the Customer name
@@ -38,7 +48,7 @@ public class CustomerImpl implements Customer {
      * @return customer password */
     @Override
     public String getPasswd() {
-        return null;
+        return passwd;
     }
 
     /** Get a collection of all order objects related to this customer (his basket)
@@ -58,7 +68,9 @@ public class CustomerImpl implements Customer {
      * @return true if order was correctly created or modified, false otherwise */
     @Override
     public boolean addProduct(Product product, int amount) {
-        return false;
+        Order newOrder = new OrderImpl (product, this, amount);
+        return this.pendingOrders.add(newOrder);
+        //return false;
     }
 
     /** "Validate" customer basket and "send" all products to the customer,

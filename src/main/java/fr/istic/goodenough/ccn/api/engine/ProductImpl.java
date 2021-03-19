@@ -2,6 +2,7 @@ package fr.istic.goodenough.ccn.api.engine;
 
 public class ProductImpl implements Product {
 
+    private int pid;
     private String fullName;
     private String shortName;
     private double currentPrice;
@@ -10,13 +11,16 @@ public class ProductImpl implements Product {
         this.fullName = fullName;
         this.shortName = shortName;
         this.currentPrice = price;
+        //this.stock = -1;
+        this.stock = stock;
+        this.type = type;
     }
 
     /** Get product id
      * @return pid */
     @Override
     public int getPid() {
-        return 0;
+        return pid;
     }
 
     /** Get product full name
@@ -44,6 +48,6 @@ public class ProductImpl implements Product {
      * @return current product stock*/
     @Override
     public int getStock() {
-        return 0;
+        return stock;
     }
 }
