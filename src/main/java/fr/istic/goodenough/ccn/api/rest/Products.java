@@ -18,37 +18,37 @@ import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
 @Path("products")
 public class Products {
 
-	private Engine engine;
+    private Engine engine;
 
-	public Products() {
-		engine = EnginePhonyImpl.currentEngine;
-	}
+    public Products() {
+        engine = EnginePhonyImpl.currentEngine;
+    }
 
-	private Collection<ProductDTO> getAllProducts() {
-		Collection<ProductDTO> productDTOs = new ArrayList<>();
-		for(Product c : engine.getAllProducts()) {
-			ProductDTO dto = makeProductDTO(c);
-			productDTOs.add(dto);
-		}
-		return Collections.unmodifiableCollection(productDTOs);
-	}
-	private ProductDTO makeProductDTO(Product product) {
-		return new ProductDTO(Integer.toHexString(product.hashCode()),
-				product.getFullName(),product.getPrice());
-	}
+    private Collection<ProductDTO> getAllProducts() {
+        Collection<ProductDTO> productDTOs = new ArrayList<>();
+        for(Product c : engine.getAllProducts()) {
+            ProductDTO dto = makeProductDTO(c);
+            productDTOs.add(dto);
+        }
+        return Collections.unmodifiableCollection(productDTOs);
+    }
+    private ProductDTO makeProductDTO(Product product) {
+        return new ProductDTO(Integer.toHexString(product.hashCode()),
+                product.getFullName(),product.getPrice());
+    }
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<ProductDTO> getProducts() {
-		return getAllProducts();
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<ProductDTO> getProducts() {
+        return getAllProducts();
+    }
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public ProductDTO getProductById(@PathParam("id") String productId) {
-		
-		return null; // HACK Return the proper error code instead
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public ProductDTO getProductById(@PathParam("id") String productId) {
 
-	}
+        return null; // HACK Return the proper error code instead
+
+    }
 }
