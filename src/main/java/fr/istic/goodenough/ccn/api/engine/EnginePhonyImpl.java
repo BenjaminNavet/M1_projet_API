@@ -36,6 +36,14 @@ public class EnginePhonyImpl implements Engine {
         customers.put(name, new CustomerImpl(name));
     }
 
+    /** Get the customer object associated with given uid.
+     * @param uid customer id
+     * @return Optional object that may or may not contain a customer object */
+    @Override
+    public Optional<Customer> getCustomer(int uid) {
+        return Optional.empty();
+    }
+
     /** Get the customer object associated with given name and password.
      * @param name customer name
      * @param passwd customer password
@@ -48,6 +56,14 @@ public class EnginePhonyImpl implements Engine {
         } else {
             return Optional.empty();
         }
+    }
+
+    /** Get the product object associated with given pid.
+     * @param pid product id
+     * @return Optional object that may or may not contain a product object */
+    @Override
+    public Optional<Product> getProduct(int pid) {
+        return Optional.empty();
     }
 
     /** Get a collection of all products
