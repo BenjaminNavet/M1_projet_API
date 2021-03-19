@@ -1,18 +1,20 @@
 package fr.istic.goodenough.ccn.api.rest;
 
-/**
- * Data transfer object for a product
- */
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+/** Data transfer object for a product */
 @XmlRootElement(name = "Product")
 public class ProductDTO {
-    public String id;
-    public double price;
+    public String pid;
+    public String type;
     public String name;
+    public double price;
 
-    public ProductDTO(String id, String name, double price) {
-        this.id = id;
+
+    public ProductDTO(String id, String type, String name, double price) {
+        this.pid = id;
+        this.type = type;
         this.name = name;
         this.price = price;
     }

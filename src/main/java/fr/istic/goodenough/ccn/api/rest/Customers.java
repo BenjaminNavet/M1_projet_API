@@ -37,8 +37,8 @@ public class Customers {
     // Factories for DTOs
 
     private CustomerDTO makeCustomerDTO(Customer customer) {
-        return new CustomerDTO(Integer.toHexString(customer.hashCode()),
-                customer.getName()/*,customer.getCredit()*/);
+        return new CustomerDTO(Integer.toHexString(customer.hashCode())/*,
+                customer.getName()*//*,customer.getCredit()*/);
     }
 
     // ---- REST API --------
