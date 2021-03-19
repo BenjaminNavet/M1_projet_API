@@ -57,10 +57,19 @@ public class OrderImpl implements Order{
         else {
             if (this.product.getStock()<amount) {
                 return false;
-            }
-            else {
-                this.amount = amount;
-                return true;
+            } else {
+                if (this.amount < amount) {
+                    this.product.takeFromStock(Math.abs(this.amount - amount));
+                    this.amount = amount;
+                    return true;
+                } else if (this.amount > amount) {
+                    this.product.putIn(Mamount - this.amount);
+                    this.amount = amount;
+                    return true;
+                }
+                else { // If the user use this method with the amount as the original one.
+                    return true;
+                }
             }
         }
     }
