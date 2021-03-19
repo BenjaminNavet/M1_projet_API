@@ -33,7 +33,6 @@ public class Add {
             if (customer.get().addProduct(product.get(), Integer.parseInt(amount))) {
                 return Response
                         .status(Response.Status.OK)
-                        .entity("")
                         .build();
             }
             return Response
