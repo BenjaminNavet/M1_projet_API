@@ -8,6 +8,7 @@ import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Singleton
 @Path("login")
@@ -31,11 +32,17 @@ public class Login {
      * @return Json containing customer uid if customer exist or 404 */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CustomerDTO get(@QueryParam("name") String name, @QueryParam("passwd") String passwd) {
+    public Response get(@QueryParam("name") String name, @QueryParam("passwd") String passwd) {
         Optional<Customer> cust = engine.getCustomerByCredentials(name,passwd);
         if (cust.isPresent()) {
-            return makeCustomerDTO(cust.get());
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(makeCustomerDTO(cust.get()))
+                    .build();
         }
-        return null;
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity("{\"message\" : \"Customer not found / Invalid credentials\"}")
+                .build();
     }
 }

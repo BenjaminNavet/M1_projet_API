@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.util.Optional;
 
@@ -29,13 +30,22 @@ public class Clear {
     @DELETE
     @Path("{uid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("uid") String uid) {
+    public Response delete(@PathParam("uid") String uid) {
         Optional<Customer> customer = engine.getCustomer(Integer.parseInt(uid));
-
         if (customer.isPresent()) {
-            customer.get().clear();
+            if (customer.get().clear()){
+                return Response
+                        .status(Response.Status.OK)
+                        .entity("")
+                        .build();
+            }
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .build();
         }
-
-        //404
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity("{\"message\" : \"Account not found\"}")
+                .build();
     }
 }

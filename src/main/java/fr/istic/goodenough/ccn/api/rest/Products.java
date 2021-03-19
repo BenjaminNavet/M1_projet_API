@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import fr.istic.goodenough.ccn.api.engine.Customer;
 import fr.istic.goodenough.ccn.api.engine.Product;
@@ -17,7 +18,7 @@ import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
 @Path("products")
 public class Products {
 
-    private Engine engine;
+    private final Engine engine;
 
     public Products() {
         engine = EnginePhonyImpl.currentEngine;
@@ -48,10 +49,16 @@ public class Products {
      * @return list of all products or 401*/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<ProductDTO> getProducts(@QueryParam("uid") String uid) {
+    public Response getProducts(@QueryParam("uid") String uid) {
         Optional<Customer> cust = engine.getCustomer(Integer.parseInt(uid));
-        if (cust.isPresent()) return getAllProducts();
-        return null;
+        if (cust.isPresent()) return Response
+                .status(Response.Status.OK)
+                .entity(getAllProducts())
+                .build();
+        return Response
+                .status(Response.Status.UNAUTHORIZED)
+                .entity("{\"message\" : \"You must be logged to access this ressource\"}")
+                .build();
     }
 
 //    @GET

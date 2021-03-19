@@ -7,13 +7,14 @@ import fr.istic.goodenough.ccn.api.engine.Product;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.Optional;
 
 @Singleton
-@Path("Add")
+@Path("add")
 public class Add {
 
-    private Engine engine;
+    private final Engine engine;
 
     public Add() {
         engine = EnginePhonyImpl.currentEngine;
@@ -25,11 +26,26 @@ public class Add {
      * @param amount quantity of product to add */
     @POST
     @Path("{uid}")
-    public void post(@PathParam("uid") String uid, @QueryParam("pid") String pid, @QueryParam("amount") String amount) {
+    public Response post(@PathParam("uid") String uid, @QueryParam("pid") String pid, @QueryParam("amount") String amount) {
         Optional<Customer> customer = engine.getCustomer(Integer.parseInt(uid));
         Optional<Product> product = engine.getProduct(Integer.parseInt(pid));
         if (customer.isPresent() && product.isPresent()) {
-            customer.get().addProduct(product.get(), Integer.parseInt(amount));
+            if (customer.get().addProduct(product.get(), Integer.parseInt(amount))) {
+                return Response
+                        .status(Response.Status.OK)
+                        .entity("")
+                        .build();
+            }
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .build();
         }
+
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(customer.isPresent()?
+                        "{\"message\" : \"Product not found\"}":
+                        "{\"message\" : \"Account not found\"}")
+                .build();
     }
 }
