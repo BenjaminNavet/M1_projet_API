@@ -42,8 +42,8 @@ public class OrderImpl implements Order{
     }
 
     /** Define the amount of product this order must contains.
-     * If requested amount is superior to previous amount the method will try to take the missing quantity from
-     * the stock, if desired quantity is not present in product stock no changes are made and false is returned.
+     * If requested amount is superior to previous amount the method will try to take the missing quantity from the stock
+     * and update the amount into the stock, if desired quantity is not present in product stock no changes are made and false is returned.
      * If requested amount is inferior to the previous amount the method will put the difference
      * back in the product stock.
      * @param amount total quantity of product in this order
@@ -55,7 +55,7 @@ public class OrderImpl implements Order{
             return true;
         }
         else {
-            if (this.product.getStock()<amount) {
+            if (this.product.getStock() < amount) {
                 return false;
             } else {
                 if (this.amount < amount) {
