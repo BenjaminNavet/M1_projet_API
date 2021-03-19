@@ -40,7 +40,6 @@ public class Add {
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
                     .build();
         }
-
         return Response
                 .status(Response.Status.NOT_FOUND)
                 .entity(customer.isPresent()?
