@@ -23,7 +23,6 @@ public class ProductImpl implements Product {
         this.fullName = fullName;
         this.shortName = shortName;
         this.currentPrice = price;
-        //this.stock = -1;
         this.stock = stock;
         this.type = type;
     }
@@ -61,6 +60,16 @@ public class ProductImpl implements Product {
     @Override
     public int getStock() {
         return stock;
+    }
+
+    @Override
+    public boolean takeFromStock(int amount) {
+        return false;
+    }
+
+    @Override
+    public boolean putInStock(int amount) {
+        return false;
     }
 
     @Override

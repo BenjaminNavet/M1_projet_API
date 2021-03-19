@@ -78,15 +78,17 @@ public class CustomerImpl implements Customer {
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */
     @Override
     public boolean order() {
-        return false;
+        this.pendingOrders.clear();
+        return true;
     }
 
     /** Cancel customer basket, cancel all related order objects.
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
+        //faire une boucle pour modifier le stock via la methode cancel()
         this.pendingOrders.clear();
-        return pendingOrders.isEmpty();
+        return true;
     }
 
     /** Get customer credit

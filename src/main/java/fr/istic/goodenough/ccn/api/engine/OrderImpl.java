@@ -54,7 +54,7 @@ public class OrderImpl implements Order{
             this.amount = amount;
             return true;
         }
-        if (this.product.getStock()!=-1){
+        else {
             if (this.product.getStock()<amount) {
                 return false;
             }
@@ -63,14 +63,6 @@ public class OrderImpl implements Order{
                 return true;
             }
         }
-
-        if (amount < this.amount) {
-            this.amount += amount;
-        }
-        else {
-            this.amount -= amount;
-        }
-        return false;
     }
 
     /** Get the total price for this order, product price multiplied by product amount
