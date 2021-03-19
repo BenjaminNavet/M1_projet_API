@@ -62,6 +62,9 @@ public class ProductImpl implements Product {
         return stock;
     }
 
+    /** Remove the designated amount from the stock
+     * @param amount value take from the stock
+     * @return true if operation success, false if not*/
     @Override
     public boolean takeFromStock(int amount) {
         if (amount > stock) {
@@ -78,7 +81,8 @@ public class ProductImpl implements Product {
      * @return true if operation success, false if not*/
     @Override
     public boolean putInStock(int amount) {
-        return false;
+        this.stock += amount;
+        return true;
     }
 
     @Override
