@@ -86,7 +86,10 @@ public class CustomerImpl implements Customer {
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
-        //faire une boucle pour modifier le stock via la methode cancel()
+        for(Order item : pendingOrders){
+           // item.getProduct().putInStock(item.getAmount());
+            item.cancel();
+        }
         this.pendingOrders.clear();
         return true;
     }
