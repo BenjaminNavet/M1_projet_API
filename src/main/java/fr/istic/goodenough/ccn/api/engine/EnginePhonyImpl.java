@@ -13,7 +13,9 @@ public class EnginePhonyImpl implements Engine {
     private Map<String, Customer> customers = new HashMap<>();
     private Map<String, Product> products = new HashMap<>();
 
-    /** TODO FAIRE LA DOC ! */
+    /**
+     * Examples for testing values
+     */
     public EnginePhonyImpl() {
 
         addPhonyCustomer("Emma", "1234", 1, 10.0);
@@ -24,11 +26,16 @@ public class EnginePhonyImpl implements Engine {
 
     }
 
-    /** TODO FAIRE LA DOC ! */
-    private void addPhonyProduct(String longName, String shortName,
-                                 double price) {
-        products.put(shortName, new ProductImpl(longName, shortName, price));
-
+    /** Add the Product into the set products
+     * @param pid product id
+     * @param longName product long name
+     * @param shortName product short name
+     * @param price product price
+     * @param stock product stock
+     * @param type product type
+     */
+    private void addPhonyProduct(int pid,String longName, String shortName, double price, int stock, String type){
+        products.put(shortName, new ProductImpl(pid, longName, shortName, price, stock, type));
     }
 
     /** Add the Costumer into the set customers
