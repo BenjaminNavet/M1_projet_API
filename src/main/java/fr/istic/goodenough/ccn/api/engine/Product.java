@@ -13,13 +13,10 @@ public interface Product {
      * @return product short name */
     String getShortName();
 
-    /** Get the product type
-     * @return product type*/
-    String getType();
-
-    /** Get product price
-     * @return product price */
-    double getPrice();
+    /** Remove the designated amount from the stock
+     * @param amount value take from the stock
+     * @return true if operation success, false if not*/
+    boolean takeFromStock(int amount);
 
     /** Put the designated amount into the stock
      * @param amount value put into the stock
