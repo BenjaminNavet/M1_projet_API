@@ -16,11 +16,11 @@ public class EnginePhonyImpl implements Engine {
     /** TODO FAIRE LA DOC ! */
     public EnginePhonyImpl() {
 
-        addPhonyCustomer("Emma", 10.0);
-        addPhonyCustomer("Obelix", 7.0);
+        addPhonyCustomer("Emma", "1234", 1, 10.0);
+        addPhonyCustomer("Obelix", "0000", 2, 7.0);
 
-        addPhonyProduct("Hotdog", "HD", 2.0);
-        addPhonyProduct("Ball bearings pizza", "BBPIZ", 3.5);
+        addPhonyProduct(1, "Hotdog", "HD", 2.0, -1, "sandwich");
+        addPhonyProduct(2, "Ball bearings pizza", "BBPIZ", 3.5, -1, "pizza");
 
     }
 
@@ -31,9 +31,14 @@ public class EnginePhonyImpl implements Engine {
 
     }
 
-    /** TODO FAIRE LA DOC ! */
-    private void addPhonyCustomer(String name, double credit) {
-        customers.put(name, new CustomerImpl(name));
+    /** Add the Costumer into the set customers
+     * @param name customer name
+     * @param password customer password
+     * @param uid customer id
+     * @param credit customer credit
+     */
+    private void addPhonyCustomer(String name, String password, int uid, double credit) {
+        customers.put(name, new CustomerImpl(name, password, uid));
     }
 
     /** Get the customer object associated with given uid.
