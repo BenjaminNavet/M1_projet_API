@@ -9,14 +9,13 @@ public class ProductImpl implements Product {
     private int stock;
     private String type;
 
-    /**
-     * Create product
-     * @param pid
-     * @param fullName
-     * @param shortName
-     * @param price
-     * @param stock
-     * @param type
+    /** Create product
+     * @param pid product id
+     * @param fullName product full name
+     * @param shortName product shortname
+     * @param price product price
+     * @param stock product stock
+     * @param type product type
      */
     public ProductImpl(int pid, String fullName, String shortName, double price, int stock, String type) {
         this.pid = pid;
