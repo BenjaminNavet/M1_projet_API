@@ -6,8 +6,20 @@ public class ProductImpl implements Product {
     private String fullName;
     private String shortName;
     private double currentPrice;
+    private int stock;
+    private String type;
 
-    public ProductImpl(String fullName, String shortName, double price) {
+    /**
+     * Create product
+     * @param pid
+     * @param fullName
+     * @param shortName
+     * @param price
+     * @param stock
+     * @param type
+     */
+    public ProductImpl(int pid, String fullName, String shortName, double price, int stock, String type) {
+        this.pid = pid;
         this.fullName = fullName;
         this.shortName = shortName;
         this.currentPrice = price;
@@ -50,4 +62,11 @@ public class ProductImpl implements Product {
     public int getStock() {
         return stock;
     }
+
+    @Override
+    /** Get the product type
+     * @return product type*/
+     public String getType(){
+         return this.type;
+     }
 }

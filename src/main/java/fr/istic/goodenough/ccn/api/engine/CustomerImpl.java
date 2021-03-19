@@ -85,7 +85,8 @@ public class CustomerImpl implements Customer {
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
-        return false;
+        this.pendingOrders.clear();
+        return pendingOrders.isEmpty();
     }
 
     /** Get customer credit

@@ -21,4 +21,8 @@ public interface Product {
      * @return current product stock*/
     int    getStock();
 
+    /** Get the product type
+     * @return product type*/
+    String getType();
+
 }

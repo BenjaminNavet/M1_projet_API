@@ -1,6 +1,25 @@
 package fr.istic.goodenough.ccn.api.engine;
 
 public class OrderImpl implements Order{
+
+    // attribute
+    private Product product;
+    private Customer customer;
+    private int amount;
+
+    /**
+     * Create the order object
+     * @param prod take the product object
+     * @param custom take the customer object
+     * @param amount take the amount product
+     */
+    public OrderImpl(Product prod, Customer custom, int amount){
+        this.product = prod;
+        this.customer = custom;
+        this.amount = amount;
+    }
+
+
     /** Get customer related to this order
      * @return related customer object */
     @Override
