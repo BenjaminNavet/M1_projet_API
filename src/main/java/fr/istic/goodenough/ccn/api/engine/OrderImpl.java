@@ -2,17 +2,16 @@ package fr.istic.goodenough.ccn.api.engine;
 
 public class OrderImpl implements Order{
 
+    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
     // attribute
     private Product product;
     private Customer customer;
     private int amount;
 
-    /**
-     * Create the order object
-     * @param prod take the product object
-     * @param custom take the customer object
-     * @param amount take the amount product
-     */
+    /** Create the order object
+     * @param prod product object
+     * @param custom customer object
+     * @param amount amount product to order */
     public OrderImpl(Product prod, Customer custom, int amount){
         this.product = prod;
         this.customer = custom;
@@ -42,13 +41,15 @@ public class OrderImpl implements Order{
     }
 
     /** Define the amount of product this order must contains.
-     * If requested amount is superior to previous amount the method will try to take the missing quantity from the stock
-     * and update the amount into the stock, if desired quantity is not present in product stock no changes are made and false is returned.
+     * If requested amount is superior to previous amount the method will try to take the missing quantity from the
+     * stock and update the amount into the stock,
+     * if desired quantity is not present in product stock no changes are made and false is returned.
      * If requested amount is inferior to the previous amount the method will put the difference
      * back in the product stock.
      * @param amount total quantity of product in this order
      * @return true if product amount in order was successfully modified, false if not. */
     @Override
+    // TODO : REMOVE THE INFINITE STOCK MANAGEMENT
     public boolean setAmount(int amount) {
         if (this.product.getStock()==-1){
             this.amount = amount;
@@ -84,6 +85,7 @@ public class OrderImpl implements Order{
     /** Cancel this order by putting the amount of product in the order back in the product stock
      * @return true if cancel is success, false if not */
     @Override
+    // TODO : METTRE THIS.AMOUNT A 0 après avoir remis dans le stock ;)
     public boolean cancel() {
        return this.getProduct().putInStock(this.getAmount());
     }

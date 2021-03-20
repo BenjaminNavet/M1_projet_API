@@ -4,12 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * This _NOT_ a DTO.
- * @author plouzeau
- */
+/** This _NOT_ a DTO.
+ * @author plouzeau */
 public class CustomerImpl implements Customer {
 
+    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
     private String name;
     private int uid;
     double credit;
@@ -51,6 +50,14 @@ public class CustomerImpl implements Customer {
         return passwd;
     }
 
+    /** Get customer credit
+     * @deprecated Not to be used in current version
+     * @return customer credit*/
+    @Override
+    public double getCredit() {
+        return credit;
+    }
+
     /** Get a collection of all order objects related to this customer (his basket)
      * @return customer basket in a collection */
     @Override
@@ -70,13 +77,13 @@ public class CustomerImpl implements Customer {
     public boolean addProduct(Product product, int amount) {
         Order newOrder = new OrderImpl (product, this, amount);
         return this.pendingOrders.add(newOrder);
-        //return false;
     }
 
     /** "Validate" customer basket and "send" all products to the customer,
      * destroy all related order objects and empty pending order collection.
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */
     @Override
+    // TODO : /!\ SURTOUT PAS DE CLEAR, LE CLEAR REMET TOUT LES PRODUITS DANS LE STOCK ALORS QU'ILS SONT CENSES PARTIR CHEZ LE CLIENT !!!
     public boolean order() {
         this.pendingOrders.clear();
         return true;
@@ -87,18 +94,9 @@ public class CustomerImpl implements Customer {
     @Override
     public boolean clear() {
         for(Order item : pendingOrders){
-           // item.getProduct().putInStock(item.getAmount());
             item.cancel();
         }
         this.pendingOrders.clear();
         return true;
-    }
-
-    /** Get customer credit
-     * @deprecated Not to be used in current version
-     * @return customer credit*/
-    @Override
-    public double getCredit() {
-        return credit;
     }
 }

@@ -10,12 +10,11 @@ public class EnginePhonyImpl implements Engine {
 
     public static Engine currentEngine = new EnginePhonyImpl();
 
-    private Map<String, Customer> customers = new HashMap<>();
-    private Map<String, Product> products = new HashMap<>();
+    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
+    private Map<String, Customer> customers = new HashMap<>(); // TODO : UTILISER L'UID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE NOM SOIT UNIQUE
+    private Map<String, Product> products = new HashMap<>(); // TODO : UTILISER LE PID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE SHORTNAME SOIT UNIQUE
 
-    /**
-     * Examples for testing values
-     */
+    /** Examples for testing values */
     public EnginePhonyImpl() {
 
         addPhonyCustomer("Emma", "1234", 1, 10.0);
@@ -32,8 +31,7 @@ public class EnginePhonyImpl implements Engine {
      * @param shortName product short name
      * @param price product price
      * @param stock product stock
-     * @param type product type
-     */
+     * @param type product type */
     private void addPhonyProduct(int pid,String longName, String shortName, double price, int stock, String type){
         products.put(shortName, new ProductImpl(pid, longName, shortName, price, stock, type));
     }
@@ -42,8 +40,7 @@ public class EnginePhonyImpl implements Engine {
      * @param name customer name
      * @param password customer password
      * @param uid customer id
-     * @param credit customer credit
-     */
+     * @param credit customer credit */
     private void addPhonyCustomer(String name, String password, int uid, double credit) {
         customers.put(name, new CustomerImpl(name, password, uid));
     }
@@ -51,6 +48,7 @@ public class EnginePhonyImpl implements Engine {
     /** Get the customer object associated with given uid.
      * @param uid customer id
      * @return Optional object that may or may not contain a customer object */
+    // TODO : ÉCRIRE LA FONCTION ^^
     @Override
     public Optional<Customer> getCustomer(int uid) {
         return Optional.empty();
@@ -59,7 +57,7 @@ public class EnginePhonyImpl implements Engine {
     /** Get the customer object associated with given name and password.
      * @param name customer name
      * @param passwd customer password
-     * @return Optional object that may or may not contain a customer object*/
+     * @return Optional object that may or may not contain a customer object */
     @Override
     public Optional<Customer> getCustomerByCredentials(String name, String passwd) {
         Customer result = customers.get(name);
@@ -74,6 +72,7 @@ public class EnginePhonyImpl implements Engine {
      * @param pid product id
      * @return Optional object that may or may not contain a product object */
     @Override
+    // TODO : ÉCRIRE LA FONCTION ^^
     public Optional<Product> getProduct(int pid) {
         return Optional.empty();
     }
