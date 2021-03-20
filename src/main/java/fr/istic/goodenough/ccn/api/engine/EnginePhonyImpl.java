@@ -1,5 +1,7 @@
 package fr.istic.goodenough.ccn.api.engine;
 
+import fr.istic.goodenough.ccn.api.data.PhonyData;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,38 +13,13 @@ public class EnginePhonyImpl implements Engine {
     public static Engine currentEngine = new EnginePhonyImpl();
 
     // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
-    private Map<String, Customer> customers = new HashMap<>(); // TODO : UTILISER L'UID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE NOM SOIT UNIQUE
-    private Map<String, Product> products = new HashMap<>(); // TODO : UTILISER LE PID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE SHORTNAME SOIT UNIQUE
+    private Map<String, Customer> customers; // TODO : UTILISER L'UID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE NOM SOIT UNIQUE
+    private Map<String, Product>  products; // TODO : UTILISER LE PID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE SHORTNAME SOIT UNIQUE
 
     /** Examples for testing values */
     public EnginePhonyImpl() {
-
-        addPhonyCustomer("Emma", "1234", 1, 10.0);
-        addPhonyCustomer("Obelix", "0000", 2, 7.0);
-
-        addPhonyProduct(1, "Hotdog", "HD", 2.0, -1, "sandwich");
-        addPhonyProduct(2, "Ball bearings pizza", "BBPIZ", 3.5, -1, "pizza");
-
-    }
-
-    /** Add the Product into the set products
-     * @param pid product id
-     * @param longName product long name
-     * @param shortName product short name
-     * @param price product price
-     * @param stock product stock
-     * @param type product type */
-    private void addPhonyProduct(int pid,String longName, String shortName, double price, int stock, String type){
-        products.put(shortName, new ProductImpl(pid, longName, shortName, price, stock, type));
-    }
-
-    /** Add the Costumer into the set customers
-     * @param name customer name
-     * @param password customer password
-     * @param uid customer id
-     * @param credit customer credit */
-    private void addPhonyCustomer(String name, String password, int uid, double credit) {
-        customers.put(name, new CustomerImpl(name, password, uid));
+        customers = PhonyData.generatePhonyCustomers();
+        products  = PhonyData.generatePhonyProducts();
     }
 
     /** Get the customer object associated with given uid.
@@ -59,6 +36,8 @@ public class EnginePhonyImpl implements Engine {
      * @param passwd customer password
      * @return Optional object that may or may not contain a customer object */
     @Override
+    // TODO : OPTIMISER LA FONCTION EN UTILISANT Optional.ofNullable()
+    // TODO : VERIFIER QUE LE PASSWORD DU CUSTOMER MATCH AVANT DE LE RENVOYER !!!
     public Optional<Customer> getCustomerByCredentials(String name, String passwd) {
         Customer result = customers.get(name);
         if (result != null) {
@@ -90,5 +69,4 @@ public class EnginePhonyImpl implements Engine {
     public Collection<Customer> getAllCustomers() {
         return Collections.unmodifiableCollection(customers.values());
     }
-
 }

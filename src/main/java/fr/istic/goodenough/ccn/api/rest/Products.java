@@ -61,12 +61,10 @@ public class Products {
                 .build();
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("{pid}")
-//    public ProductDTO getProductById(@PathParam("id") String productId) {
-//
-//        return null; // HACK Return the proper error code instead
-//
-//    }
+    /*@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{pid}")
+    public ProductDTO getProductById(@PathParam("pid") String productId) {
+        return null; // HACK Return the proper error code instead
+    }*/
 }
