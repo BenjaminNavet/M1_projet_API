@@ -43,4 +43,6 @@ public interface Customer {
      * @deprecated Not to be used in current version
      * @return customer credit*/
     double getCredit();
+
+
 }

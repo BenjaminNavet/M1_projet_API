@@ -4,18 +4,27 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * This _NOT_ a DTO.
- * @author plouzeau
- */
+/** This _NOT_ a DTO.
+ * @author plouzeau */
 public class CustomerImpl implements Customer {
 
+    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
     private String name;
+    private int uid;
     double credit;
     private Collection<Order> pendingOrders;
+    private String passwd;
 
-    public CustomerImpl(String name) {
+    /**
+     * Constructor Customer
+     * @param name the client's name
+     * @param passwd the client's password
+     * @param uid the client's id
+     */
+    public CustomerImpl(String name, String passwd, int uid) {
         this.name = name;
+        this.passwd = passwd;
+        this.uid = uid;
         this.credit = -1;
         pendingOrders = new LinkedList<>();
     }
@@ -24,7 +33,7 @@ public class CustomerImpl implements Customer {
      * @return customer uid */
     @Override
     public int getUid() {
-        return 0;
+        return uid;
     }
 
     /** Get the Customer name
@@ -38,7 +47,15 @@ public class CustomerImpl implements Customer {
      * @return customer password */
     @Override
     public String getPasswd() {
-        return null;
+        return passwd;
+    }
+
+    /** Get customer credit
+     * @deprecated Not to be used in current version
+     * @return customer credit*/
+    @Override
+    public double getCredit() {
+        return credit;
     }
 
     /** Get a collection of all order objects related to this customer (his basket)
@@ -58,29 +75,28 @@ public class CustomerImpl implements Customer {
      * @return true if order was correctly created or modified, false otherwise */
     @Override
     public boolean addProduct(Product product, int amount) {
-        return false;
+        Order newOrder = new OrderImpl (product, this, amount);
+        return this.pendingOrders.add(newOrder);
     }
 
     /** "Validate" customer basket and "send" all products to the customer,
      * destroy all related order objects and empty pending order collection.
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */
     @Override
+    // TODO : /!\ SURTOUT PAS DE CLEAR, LE CLEAR REMET TOUT LES PRODUITS DANS LE STOCK ALORS QU'ILS SONT CENSES PARTIR CHEZ LE CLIENT !!!
     public boolean order() {
-        return false;
+        this.pendingOrders.clear();
+        return true;
     }
 
     /** Cancel customer basket, cancel all related order objects.
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
-        return false;
-    }
-
-    /** Get customer credit
-     * @deprecated Not to be used in current version
-     * @return customer credit*/
-    @Override
-    public double getCredit() {
-        return credit;
+        for(Order item : pendingOrders){
+            item.cancel();
+        }
+        this.pendingOrders.clear();
+        return true;
     }
 }
