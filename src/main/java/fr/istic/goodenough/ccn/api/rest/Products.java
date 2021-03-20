@@ -3,13 +3,13 @@ package fr.istic.goodenough.ccn.api.rest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import javax.inject.Singleton;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import fr.istic.goodenough.ccn.api.engine.Customer;
 import fr.istic.goodenough.ccn.api.engine.Product;
 import fr.istic.goodenough.ccn.api.engine.Engine;
 import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
@@ -18,12 +18,14 @@ import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
 @Path("products")
 public class Products {
 
-    private Engine engine;
+    private final Engine engine;
 
     public Products() {
         engine = EnginePhonyImpl.currentEngine;
     }
 
+    /** Get a collection of all product DTO
+     * @return collection of productDTO*/
     private Collection<ProductDTO> getAllProducts() {
         Collection<ProductDTO> productDTOs = new ArrayList<>();
         for(Product c : engine.getAllProducts()) {
@@ -32,23 +34,39 @@ public class Products {
         }
         return Collections.unmodifiableCollection(productDTOs);
     }
+
+    /** Convert a product object into a DTO
+     * @return productDTO*/
     private ProductDTO makeProductDTO(Product product) {
-        return new ProductDTO(Integer.toHexString(product.hashCode()),
-                product.getFullName(),product.getPrice());
+        return new ProductDTO(
+                Integer.toString(product.getPid()),
+                product.getType(),
+                product.getFullName(),
+                product.getPrice());
     }
 
+    /** Create a list of all available products and return it in json
+     * @return list of all products or 401*/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<ProductDTO> getProducts() {
-        return getAllProducts();
+    public Response getProducts(@QueryParam("uid") String uid) {
+        Optional<Customer> cust = engine.getCustomer(Integer.parseInt(uid));
+        if (cust.isPresent()) return Response
+                .status(Response.Status.OK)
+                .entity(getAllProducts())
+                .build();
+        return Response
+                .status(Response.Status.UNAUTHORIZED)
+                .entity("{\"message\" : \"You must be logged to access this ressource\"}")
+                .build();
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public ProductDTO getProductById(@PathParam("id") String productId) {
-
-        return null; // HACK Return the proper error code instead
-
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("{pid}")
+//    public ProductDTO getProductById(@PathParam("id") String productId) {
+//
+//        return null; // HACK Return the proper error code instead
+//
+//    }
 }
