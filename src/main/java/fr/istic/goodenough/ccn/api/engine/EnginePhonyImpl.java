@@ -38,6 +38,7 @@ public class EnginePhonyImpl implements Engine {
     @Override
     // TODO : OPTIMISER LA FONCTION EN UTILISANT Optional.ofNullable()
     // TODO : VERIFIER QUE LE PASSWORD DU CUSTOMER MATCH AVANT DE LE RENVOYER !!!
+    // TODO : PENSER A IGNORER LA CASE LORS DE LA RECHERCHE DU NAME, ON SAIS JAMAIS
     public Optional<Customer> getCustomerByCredentials(String name, String passwd) {
         Customer result = customers.get(name);
         if (result != null) {
