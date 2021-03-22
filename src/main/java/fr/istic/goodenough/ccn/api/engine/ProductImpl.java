@@ -2,13 +2,12 @@ package fr.istic.goodenough.ccn.api.engine;
 
 public class ProductImpl implements Product {
 
-    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
-    private int pid;
-    private String fullName;
-    private String shortName;
-    private double currentPrice;
+    private final int pid;
+    private final String fullName;
+    private final String shortName;
+    private final double currentPrice;
     private int stock;
-    private String type;
+    private final String type;
 
     /** Create product
      * @param pid product id
@@ -69,12 +68,14 @@ public class ProductImpl implements Product {
         return this.type;
     }
 
-    // TODO : FAIRE EN SORTE QUE LES DEUX FONCTIONS SUIVANTES GÈRENT LE STOCK INFINI
     /** Remove the designated amount from the stock
      * @param amount value take from the stock
      * @return true if operation success, false if not */
     @Override
     public boolean takeFromStock(int amount) {
+        if (this.stock == -1){
+             return true;
+        }
         if (amount > stock) {
             return false;
         }
@@ -89,6 +90,9 @@ public class ProductImpl implements Product {
      * @return true if operation success, false if not */
     @Override
     public boolean putInStock(int amount) {
+        if (this.stock == -1){
+            return true;
+        }
         this.stock += amount;
         return true;
     }
