@@ -83,7 +83,6 @@ public class CustomerImpl implements Customer {
      * destroy all related order objects and empty pending order collection.
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */
     @Override
-    // TODO : /!\ SURTOUT PAS DE CLEAR, LE CLEAR REMET TOUT LES PRODUITS DANS LE STOCK ALORS QU'ILS SONT CENSES PARTIR CHEZ LE CLIENT !!!
     public boolean order() {
         this.pendingOrders.clear();
         return true;
