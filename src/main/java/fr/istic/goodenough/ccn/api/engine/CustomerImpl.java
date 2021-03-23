@@ -8,12 +8,11 @@ import java.util.LinkedList;
  * @author plouzeau */
 public class CustomerImpl implements Customer {
 
-    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
-    private String name;
-    private int uid;
+    final private String name;
+    final private int uid;
     double credit;
-    private Collection<Order> pendingOrders;
-    private String passwd;
+    private final Collection<Order> pendingOrders;
+    final private String passwd;
 
     /**
      * Constructor Customer

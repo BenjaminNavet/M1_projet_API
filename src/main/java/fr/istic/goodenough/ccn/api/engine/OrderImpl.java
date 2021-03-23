@@ -2,10 +2,8 @@ package fr.istic.goodenough.ccn.api.engine;
 
 public class OrderImpl implements Order{
 
-    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
-    // attribute
-    private Product product;
-    private Customer customer;
+    final private Product product;
+    final private Customer customer;
     private int amount;
 
     /** Create the order object
@@ -49,29 +47,21 @@ public class OrderImpl implements Order{
      * @param amount total quantity of product in this order
      * @return true if product amount in order was successfully modified, false if not. */
     @Override
-    // TODO : REMOVE THE INFINITE STOCK MANAGEMENT
     public boolean setAmount(int amount) {
-        if (this.product.getStock()==-1){
-            this.amount = amount;
-            return true;
-        }
-        else {
-            if (this.product.getStock() < amount) {
-                return false;
-            } else {
-                if (this.amount < amount) {
-                    this.product.takeFromStock(Math.abs(this.amount - amount));
-                    this.amount = amount;
-                    return true;
-                } else if (this.amount > amount) {
-                    this.product.putInStock(Math.abs(this.amount - amount));
-                    this.amount = amount;
-                    return true;
-                }
-                else { // If the user use this method with the amount as the original one.
-                    return true;
-                }
+        if (this.amount < amount) {
+            if(this.product.takeFromStock(Math.abs(this.amount - amount))){
+                this.amount = amount;
+                return true;
             }
+            return false;
+        } else if (this.amount > amount) {
+            if(this.product.putInStock(Math.abs(this.amount - amount))){
+                this.amount = amount;
+                return true;
+            }
+            return false;
+        } else { // If the user use this method with the amount as the original one.
+            return true;
         }
     }
 
@@ -85,8 +75,11 @@ public class OrderImpl implements Order{
     /** Cancel this order by putting the amount of product in the order back in the product stock
      * @return true if cancel is success, false if not */
     @Override
-    // TODO : METTRE THIS.AMOUNT A 0 après avoir remis dans le stock ;)
     public boolean cancel() {
-       return this.getProduct().putInStock(this.getAmount());
+       boolean cancel = this.getProduct().putInStock(this.getAmount());
+        if (cancel) {
+           this.setAmount(0);
+       }
+       return cancel;
     }
 }

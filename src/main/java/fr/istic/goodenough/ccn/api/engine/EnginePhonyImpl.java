@@ -12,9 +12,8 @@ public class EnginePhonyImpl implements Engine {
 
     public static Engine currentEngine = new EnginePhonyImpl();
 
-    // TODO : METTRE LES ATTRIBUTS NON MODIFIE EN FINAL !
-    private Map<String, Customer> customers; // TODO : UTILISER L'UID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE NOM SOIT UNIQUE
-    private Map<String, Product>  products; // TODO : UTILISER LE PID POUR LA CLE DE LA MAP, AUCUNE GARANTIE QUE LE SHORTNAME SOIT UNIQUE
+    private final Map<String, Customer> customers;
+    private final Map<String, Product>  products;
 
     /** Examples for testing values */
     public EnginePhonyImpl() {
@@ -25,10 +24,9 @@ public class EnginePhonyImpl implements Engine {
     /** Get the customer object associated with given uid.
      * @param uid customer id
      * @return Optional object that may or may not contain a customer object */
-    // TODO : ÉCRIRE LA FONCTION ^^
     @Override
     public Optional<Customer> getCustomer(int uid) {
-        return Optional.empty();
+        return Optional.ofNullable(customers.get(Integer.toString(uid)));
     }
 
     /** Get the customer object associated with given name and password.
@@ -36,25 +34,23 @@ public class EnginePhonyImpl implements Engine {
      * @param passwd customer password
      * @return Optional object that may or may not contain a customer object */
     @Override
-    // TODO : OPTIMISER LA FONCTION EN UTILISANT Optional.ofNullable()
-    // TODO : VERIFIER QUE LE PASSWORD DU CUSTOMER MATCH AVANT DE LE RENVOYER !!!
-    // TODO : PENSER A IGNORER LA CASE LORS DE LA RECHERCHE DU NAME, ON SAIS JAMAIS
     public Optional<Customer> getCustomerByCredentials(String name, String passwd) {
-        Customer result = customers.get(name);
-        if (result != null) {
-            return Optional.of(result);
-        } else {
-            return Optional.empty();
+        for (Customer c : customers.values()){
+            if(c.getName().equalsIgnoreCase(name)){
+                if (c.getPasswd().equals(passwd)){
+                    return Optional.of(c);
+                }
+            }
         }
+        return Optional.empty();
     }
 
     /** Get the product object associated with given pid.
      * @param pid product id
      * @return Optional object that may or may not contain a product object */
     @Override
-    // TODO : ÉCRIRE LA FONCTION ^^
     public Optional<Product> getProduct(int pid) {
-        return Optional.empty();
+        return Optional.ofNullable(products.get(Integer.toString(pid)));
     }
 
     /** Get a collection of all products
