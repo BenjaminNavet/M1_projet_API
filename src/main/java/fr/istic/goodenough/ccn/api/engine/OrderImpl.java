@@ -2,8 +2,8 @@ package fr.istic.goodenough.ccn.api.engine;
 
 public class OrderImpl implements Order{
 
-    final private Product product;
-    final private Customer customer;
+    private final Product product;
+    private final Customer customer;
     private int amount;
 
     /** Create the order object

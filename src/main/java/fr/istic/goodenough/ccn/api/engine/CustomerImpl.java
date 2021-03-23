@@ -10,7 +10,7 @@ public class CustomerImpl implements Customer {
 
     final private String name;
     final private int uid;
-    double credit;
+    private final double credit;
     private final Collection<Order> pendingOrders;
     final private String passwd;
 
