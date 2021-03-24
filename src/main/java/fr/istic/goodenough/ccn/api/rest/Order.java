@@ -30,7 +30,14 @@ public class Order {
     @Path("{uid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response order(@PathParam("uid") String uid) {
-        Optional<Customer> customer = engine.getCustomer(Integer.parseInt(uid));
+        Optional<Customer> customer;
+        try {
+            customer = engine.getCustomer(Integer.parseInt(uid));
+        } catch (NullPointerException | NumberFormatException e){
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
         if (customer.isPresent()) {
             if (customer.get().order()) {
                 return Response
@@ -38,7 +45,7 @@ public class Order {
                         .build();
             }
             return Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .status(Response.Status.BAD_REQUEST)
                     .build();
         }
         return Response
