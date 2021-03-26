@@ -3,6 +3,10 @@ package fr.istic.goodenough.ccn.api.engine;
 import fr.istic.goodenough.ccn.api.data.PhonyData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.RepeatedTest;
 
 import javax.validation.constraints.AssertTrue;
 import java.util.Collection;
@@ -32,11 +36,15 @@ class OrderTest {
         assertEquals(cust, order.getCustomer(), "The customer should be the same as Jean Hubert");
     }
 
+    /** Try to get the product from an order
+     * Asserts that the product is equal to the Order's product */
     @Test
     void getProduct() {
         assertEquals(prod, order.getProduct(),"The product should be the same as Jambon fromage");
     }
 
+    /** Try to get the amount form an order
+     * Asserts that the amount is equal to 0 */
     @Test
     void getAmount() {
         assertEquals(0, order.getAmount(), "The amount should be 0");
