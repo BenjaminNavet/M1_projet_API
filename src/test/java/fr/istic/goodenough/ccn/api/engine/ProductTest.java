@@ -74,9 +74,10 @@ class ProductTest {
     @CsvSource({"0","2","800000"})
     @Tag("UnitTest")
     void takeFromWithUnlimitedStockUnit(int amount) {
-        int stockCourant=product.getStock();
+        int oldStock=product.getStock();
         assertTrue(product.takeFromStock(amount));
-        assertEquals(stockCourant-amount,product.getStock());
+        int newStock=product.getStock();
+        assertEquals(oldStock,newStock);
     }
 
     /** Try to take -1 product from unlimited stock
@@ -85,8 +86,11 @@ class ProductTest {
     @ParameterizedTest(name = "Amount is {0} but is bad value")
     @CsvSource({"-1"})
     @Tag("RobustnessTest")
-    void takeFromWithUnlimitedStockRobustness() {
-        product.takeFromStock(-1);
+    void takeFromWithUnlimitedStockRobustness(int amount) {
+        int oldStock=product.getStock();
+        assertFalse(product.takeFromStock(amount));
+        int newStock=product.getStock();
+        assertEquals(oldStock,newStock);
     }
 
     /** Try to take products from limited stock

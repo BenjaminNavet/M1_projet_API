@@ -16,8 +16,6 @@ class OrderTest {
     private Customer cust;
     private Product prod;
     private Order order;
-    private Product prod2;
-    private Order order2;
 
     @BeforeEach
     void setUp() {
@@ -101,7 +99,7 @@ class OrderTest {
         Order order2 = new OrderImpl(prod2,cust,1);
         //Order order2 = new OrderImpl(prod2,cust);
         //order2.setAmount(1);
-        assertTrue(!(order2.setAmount(amount)));
+        assertFalse(order2.setAmount(amount));
         assertEquals(rep, order2.getAmount());
     }
 
