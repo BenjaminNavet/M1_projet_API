@@ -23,7 +23,8 @@ class OrderTest {
     void setUp() {
         cust = new CustomerImpl("Jean Hubert", "creponutella", 1002);
         prod = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, -1, "nourriture");
-        order = new OrderImpl(prod,cust,1);
+        order = new OrderImpl(prod,cust);
+        order.setAmount(1);
     }
 
     /** Try to get the customer from an order
@@ -47,7 +48,7 @@ class OrderTest {
     @Test
     @Tag("UnitTest")
     void getAmount() {
-        assertEquals(0, order.getAmount(), "The amount should be 0");
+        assertEquals(1, order.getAmount(), "The amount should be 0");
     }
 
     /** Try to set the amount of an order
@@ -61,6 +62,18 @@ class OrderTest {
         assertEquals(rep, order.getAmount());
     }
 
+    /** RobustnessTest : Try to set the amount of an order with bad value
+     * Asserts a setting amount with outlier data causes false response and does not modify amount
+     * test with an unlimited product stock */
+    @ParameterizedTest(name = "Amount is {0} and answer is {1}")
+    @CsvSource({"-1,1"})
+    @Tag("RobustnessTest")
+    void setAmountUnlimitedStockRobustness(int amount, int rep) {
+        assertTrue(!(order.setAmount(amount)));
+        assertEquals(rep, order.getAmount());
+    }
+
+
     /** Try to set the amount of an order
      * Asserts that the amount is well-set
      * test with a product stock limited to 5 */
@@ -69,8 +82,23 @@ class OrderTest {
     @Tag("UnitTest")
     void setAmountLimitedStockUnit(int amount, int rep){
         Product prod2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
-        Order order2 = new OrderImpl(prod2,cust,1);
-        assertEquals(amount==rep,order2.setAmount(amount));
+        Order order2 = new OrderImpl(prod2,cust);
+        order2.setAmount(1);
+        assertTrue(order2.setAmount(amount));
+        assertEquals(rep, order2.getAmount());
+    }
+
+    /** RobustnessTest : Try to set the amount of an order with bad value
+     * Asserts a setting amount with outlier data causes false response and does not modify amount
+     * test with a product stock limited to 5 */
+    @ParameterizedTest(name = "Limited stock : Amount is {0} and answer is {1}")
+    @CsvSource({"-1,1","6,1"})
+    @Tag("RobustnessTest")
+    void setAmountLimitedStockRobustness(int amount, int rep){
+        Product prod2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
+        Order order2 = new OrderImpl(prod2,cust);
+        order2.setAmount(1);
+        assertTrue(!(order2.setAmount(amount)));
         assertEquals(rep, order2.getAmount());
     }
 
