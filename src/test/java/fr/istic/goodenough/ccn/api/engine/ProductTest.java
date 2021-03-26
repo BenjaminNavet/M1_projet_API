@@ -8,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductTest {
 
     private Product product;
+    private Product product2;
 
     @BeforeEach
     void setUp() {
         product = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, -1, "nourriture");
+        product2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
     }
 
     /** Try to get the pid of a product
@@ -56,11 +58,34 @@ class ProductTest {
         assertEquals("nourriture", product.getType(), "The type should be the same as \"nourriture\"");
     }
 
-    @Test
-    void takeFromStock() {
+    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock-Amount")
+    @CsvSource({"0","2","800000"})
+    @Tag("UnitTest")
+    void takeFromWithUnlimitedStockUnit(int amount) {
+        int stockCourant=product.getStock();
+        assertTrue(product.takeFromStock(amount));
+        assertEquals(stockCourant-amount,product.getStock());
+    }
+
+    @ParameterizedTest(name = "Amount is {0} ")
+    @CsvSource({"0","2","800000"})
+    @Tag("RobustnessTest")
+    void takeFromWithUnlimitedStockRobustness() {
+        product.takeFromStock(-1);
     }
 
     @Test
-    void putInStock() {
+    @Tag("UnitTest")
+    void takeFromStockWithLimitedStock() {
+    }
+
+    @Test
+    @Tag("UnitTest")
+    void putInStockWithUnlimitedStock() {
+    }
+
+    @Test
+    @Tag("UnitTest")
+    void putInStockWithLimitedStock() {
     }
 }
