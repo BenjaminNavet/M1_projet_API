@@ -13,7 +13,7 @@ public interface Order {
      * @return amount of product */
     int      getAmount();
 
-    /** Define the amount of product this order must contains.
+    /** Define the amount of product this order must contains, have to be done just after the order's creation.
      * If requested amount is superior to previous amount the method will try to take the missing quantity from the stock
      * and update the amount into the stock, if desired quantity is not present in product stock no changes are made and false is returned.
      * If requested amount is inferior to the previous amount the method will put the difference
