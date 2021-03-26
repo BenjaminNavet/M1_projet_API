@@ -70,7 +70,7 @@ class OrderTest {
     @CsvSource({"-1,1"})
     @Tag("RobustnessTest")
     void setAmountUnlimitedStockRobustness(int amount, int rep) {
-        assertTrue(!(order.setAmount(amount)));
+        assertFalse(order.setAmount(amount));
         assertEquals(rep, order.getAmount());
     }
 

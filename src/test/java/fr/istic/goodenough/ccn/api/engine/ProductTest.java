@@ -67,7 +67,10 @@ class ProductTest {
         assertEquals("nourriture", product.getType(), "The type should be the same as \"nourriture\"");
     }
 
-    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock-Amount")
+    /** Try to take products from unlimited stock
+     * Assert that stock hasn't been changed
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock")
     @CsvSource({"0","2","800000"})
     @Tag("UnitTest")
     void takeFromWithUnlimitedStockUnit(int amount) {
@@ -76,25 +79,83 @@ class ProductTest {
         assertEquals(stockCourant-amount,product.getStock());
     }
 
-    @ParameterizedTest(name = "Amount is {0} ")
-    @CsvSource({"0","2","800000"})
+    /** Try to take -1 product from unlimited stock
+     * Assert that it's not possible
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} but is bad value")
+    @CsvSource({"-1"})
     @Tag("RobustnessTest")
     void takeFromWithUnlimitedStockRobustness() {
         product.takeFromStock(-1);
     }
 
-    @Test
+    /** Try to take products from limited stock
+     * Assert that stock has been changed
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock-Amount")
+    @CsvSource({"0","2","5"})
     @Tag("UnitTest")
-    void takeFromStockWithLimitedStock() {
+    void takeFromStockWithLimitedStockUnit(int amount) {
+        int oldStock = product2.getStock();
+        assertTrue(product2.takeFromStock(amount));
+        int newStock = product2.getStock();
+        assertEquals(oldStock-amount,newStock);
     }
 
-    @Test
-    @Tag("UnitTest")
-    void putInStockWithUnlimitedStock() {
+    /** Try to take outlier amount from limited stock
+     * Assert that it's not possible
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} but is bad value")
+    @CsvSource({"-1","6","800000"})
+    @Tag("RobustnessTest")
+    void takeFromWithLimitedStockRobustness(int amount) {
+        int oldStock=product2.getStock();
+        assertFalse(product2.takeFromStock(amount));
+        int newStock = product2.getStock();
+        assertEquals(oldStock,newStock);
     }
 
-    @Test
+    /** Try to put products in unlimited stock
+     * Assert that stock hasn't been changed
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock")
+    @CsvSource({"0","2","800000"})
     @Tag("UnitTest")
-    void putInStockWithLimitedStock() {
+    void putInStockWithUnlimitedStockUnit(int amount) {
+        int oldStock=product.getStock();
+        assertTrue(product.putInStock(amount));
+        int newStock = product.getStock();
+        assertEquals(oldStock,newStock);
+    }
+
+    /** Try to put products in limited stock
+     * Assert that stock has been changed
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} and newStock=oldStock+Amount")
+    @CsvSource({"0","2","5"})
+    @Tag("UnitTest")
+    void putInStockWithlimitedStockUnit(int amount) {
+        int oldStock=product2.getStock();
+        assertTrue(product2.putInStock(amount));
+        int newStock=product2.getStock();
+        assertEquals(oldStock+amount,newStock);
+    }
+
+    /** Try to put outlier amount to limited stock and unlimited stock
+     * Assert that stock hasn't been changed
+     * @param amount int Product's amount */
+    @ParameterizedTest(name = "Amount is {0} but is bad value")
+    @CsvSource({"-1"})
+    @Tag("RobustnessTest")
+    void putInStockRobustnessTest(int amount) {
+        int oldStock=product2.getStock();
+        assertFalse(product2.putInStock(amount));
+        int newStock=product2.getStock();
+        assertEquals(oldStock,newStock);
+
+        oldStock=product.getStock();
+        assertFalse(product.putInStock(amount));
+        newStock = product.getStock();
+        assertEquals(oldStock,newStock);
     }
 }
