@@ -48,8 +48,8 @@ class CustomerTest {
         assertEquals(customer.getCredit(), -1);
     }
 
-    /*
-    @ParameterizedTest("")
+/*
+    @ParameterizedTest
     @DisplayName("Check PendingOrders")
     @CsvSource({"product1, customer, 3","product2, customer, 4","product3, customer,5"})
     void getPendingOrders(Collection<Order> collectionExpected) {
@@ -61,22 +61,21 @@ class CustomerTest {
         customer.addProduct(product3, 5);
         assertEquals (collectionExpected, customer.getPendingOrders());
         //assertEquals(customer.getPendingOrders(), "null" );
-    }
-    */
+    }*/
+
 
 
     @Test
     @DisplayName("Check PendingOrders")
     void getPendingOrders() {
-       // assertEquals(customer.getPendingOrders(), "null" );
-        assertEquals(customer.getPendingOrders(), customer.getPendingOrders().isEmpty());
+        assertTrue(customer.getPendingOrders().isEmpty());
     }
 
 
     @Test
     void addProduct() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, -1, "menu" );
-        assertEquals(customer.addProduct(product1, 4), "true");
+        assertTrue(customer.addProduct(product1, 4));
         assertEquals(product1.getStock(), -1);
     }
 
@@ -84,7 +83,7 @@ class CustomerTest {
     void order() {
         customer.order();
         assert (customer.getPendingOrders().isEmpty());
-        assertEquals (customer.order(),true);
+        assertTrue (customer.order());
     }
 
     @Test
