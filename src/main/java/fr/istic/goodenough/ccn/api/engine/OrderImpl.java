@@ -7,15 +7,14 @@ public class OrderImpl implements Order{
     private int amount;
 
     /** Create the order object
+     * Using the setAmount() method to define the amount after the creation of the object is mandatory
      * @param prod product object
-     * @param custom customer object
-     * @param amount amount product to order */
-    public OrderImpl(Product prod, Customer custom, int amount){
+     * @param custom customer object */
+    public OrderImpl(Product prod, Customer custom){
         this.product = prod;
         this.customer = custom;
-        this.amount = amount;
+        this.amount = 0;
     }
-
 
     /** Get customer related to this order
      * @return related customer object */
@@ -38,7 +37,7 @@ public class OrderImpl implements Order{
         return amount;
     }
 
-    /** Define the amount of product this order must contains.
+    /** Define the amount of product this order must contains, have to be done just after the order's creation.
      * If requested amount is superior to previous amount the method will try to take the missing quantity from the
      * stock and update the amount into the stock,
      * if desired quantity is not present in product stock no changes are made and false is returned.
@@ -48,6 +47,12 @@ public class OrderImpl implements Order{
      * @return true if product amount in order was successfully modified, false if not. */
     @Override
     public boolean setAmount(int amount) {
+        if (amount < 0) {
+            return false;
+        }
+        if (amount > product.getStock() && product.getStock() != -1) {
+            return false;
+        }
         if (this.amount < amount) {
             if(this.product.takeFromStock(Math.abs(this.amount - amount))){
                 this.amount = amount;
@@ -55,7 +60,7 @@ public class OrderImpl implements Order{
             }
             return false;
         } else if (this.amount > amount) {
-            if(this.product.putInStock(Math.abs(this.amount - amount))){
+            if(this.product.putInStock(this.amount - amount)){
                 this.amount = amount;
                 return true;
             }
