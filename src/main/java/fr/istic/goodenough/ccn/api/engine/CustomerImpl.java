@@ -68,13 +68,13 @@ public class CustomerImpl implements Customer {
      * and add it to the order collection of this user.
      * If a order object is already present in the user basket this method will try to change the amount in the order
      * object to match the requested amount. If desired amount is impossible to match for any reason no modification
-     * will be done dans method will return false.
+     * will be done and method will return false.
      * @param product Product object to add to the basket
      * @param amount  Amount of product to add to the basket
      * @return true if order was correctly created or modified, false otherwise */
     @Override
     public boolean addProduct(Product product, int amount) {
-        Order newOrder = new OrderImpl (product, this, amount);
+        Order newOrder = new OrderImpl (product, this);
         return this.pendingOrders.add(newOrder);
     }
 
