@@ -105,7 +105,6 @@ class OrderTest {
 
     /** test the getter for order's price */
     @Test
-    @DisplayName("Order's price must match amount*price")
     @Tag("UnitTest")
     void getOrderPrice() {
         assertEquals(order.getAmount()*prod.getPrice(), order.getOrderPrice());
@@ -114,7 +113,6 @@ class OrderTest {
     /** test the deletion of amount in the order.
      * test is repeated on empty order */
     @RepeatedTest(2)
-    @DisplayName("Product's amount must be 0")
     @Tag("UnitTest")
     void cancel() {
         assertTrue(order.cancel());
