@@ -1,7 +1,10 @@
 package fr.istic.goodenough.ccn.api.engine;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +22,7 @@ class ProductTest {
     /** Try to get the pid of a product
      * Asserts that the pid is equal to 1004 */
     @Test
+    @Tag("UnitTest")
     void getPid() {
         assertEquals(1004, product.getPid(), "The pid should be the same as 1004");
     }
@@ -26,6 +30,7 @@ class ProductTest {
     /** Try to get the full name of a product
      * Asserts that the full name is equal to "Jambon fromage" */
     @Test
+    @Tag("UnitTest")
     void getFullName() {
         assertEquals("Jambon fromage", product.getFullName(), "The full name should be the same as \"Jambon fromage\"");
     }
@@ -33,6 +38,7 @@ class ProductTest {
     /** Try to get the short name of a product
      * Asserts that the short name is equal to "Jam/From" */
     @Test
+    @Tag("UnitTest")
     void getShortName() {
         assertEquals("Jam/From", product.getShortName(), "The short name should be the same as \"Jam/From\"");
     }
@@ -40,6 +46,7 @@ class ProductTest {
     /** Try to get the price of a product
      * Asserts that the price is equal to 10.0 */
     @Test
+    @Tag("UnitTest")
     void getPrice() {
         assertEquals(10.0, product.getPrice(), "The price should be the same as 10.0");
     }
@@ -47,6 +54,7 @@ class ProductTest {
     /** Try to get the stock of a product
      * Asserts that the stock is equal to -1 (unlimited stock) */
     @Test
+    @Tag("UnitTest")
     void getStock() {
         assertEquals(-1, product.getStock(), "The stock should be the same as -1");
     }
@@ -54,6 +62,7 @@ class ProductTest {
     /** Try to get the type of a product
      * Asserts that the type is equal to "nourriture" */
     @Test
+    @Tag("UnitTest")
     void getType() {
         assertEquals("nourriture", product.getType(), "The type should be the same as \"nourriture\"");
     }

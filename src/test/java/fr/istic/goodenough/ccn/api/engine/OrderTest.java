@@ -23,8 +23,9 @@ class OrderTest {
     void setUp() {
         cust = new CustomerImpl("Jean Hubert", "creponutella", 1002);
         prod = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, -1, "nourriture");
-        order = new OrderImpl(prod,cust);
-        order.setAmount(1);
+        order = new OrderImpl(prod,cust,1);
+        //order = new OrderImpl(prod,cust);
+        //order.setAmount(1);
     }
 
     /** Try to get the customer from an order
@@ -82,8 +83,9 @@ class OrderTest {
     @Tag("UnitTest")
     void setAmountLimitedStockUnit(int amount, int rep){
         Product prod2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
-        Order order2 = new OrderImpl(prod2,cust);
-        order2.setAmount(1);
+        Order order2 = new OrderImpl(prod2,cust,1);
+        //Order order2 = new OrderImpl(prod2,cust);
+        //order2.setAmount(1);
         assertTrue(order2.setAmount(amount));
         assertEquals(rep, order2.getAmount());
     }
@@ -96,8 +98,9 @@ class OrderTest {
     @Tag("RobustnessTest")
     void setAmountLimitedStockRobustness(int amount, int rep){
         Product prod2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
-        Order order2 = new OrderImpl(prod2,cust);
-        order2.setAmount(1);
+        Order order2 = new OrderImpl(prod2,cust,1);
+        //Order order2 = new OrderImpl(prod2,cust);
+        //order2.setAmount(1);
         assertTrue(!(order2.setAmount(amount)));
         assertEquals(rep, order2.getAmount());
     }
