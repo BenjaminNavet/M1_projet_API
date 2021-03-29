@@ -68,14 +68,24 @@ public class CustomerImpl implements Customer {
      * and add it to the order collection of this user.
      * If a order object is already present in the user basket this method will try to change the amount in the order
      * object to match the requested amount. If desired amount is impossible to match for any reason no modification
-     * will be done in method will return false.
+     * will be done and method will return false.
      * @param product Product object to add to the basket
      * @param amount  Amount of product to add to the basket
      * @return true if order was correctly created or modified, false otherwise */
     @Override
     public boolean addProduct(Product product, int amount) {
-        Order newOrder = new OrderImpl (product, this, amount);
-        return this.pendingOrders.add(newOrder);
+        // Check if an order already exist for this product
+        for (Order pendingOrder : pendingOrders){
+            if(pendingOrder.getProduct().equals(product)){
+                return pendingOrder.setAmount(amount);
+            }
+        }
+        Order newOrder = new OrderImpl (product, this);
+        // Add the order to pendingOrders list if set amount if success
+        if (newOrder.setAmount(amount)){
+            this.pendingOrders.add(newOrder);
+            return true;
+        } else {return false;}
     }
 
     /** "Validate" customer basket and "send" all products to the customer,
