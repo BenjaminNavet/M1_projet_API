@@ -106,7 +106,8 @@ class CustomerTest {
     }
 
     /** Try to add a limited product
-     * Assert that the stock and the amount are correctly updated */
+     * Assert that the stock and the amount are correctly updated
+     * Assert that the getPendingOrders returned the good objects*/
     @Test
     @Tag("UnitTest")
     void addProductUpdateStock() {
@@ -116,6 +117,8 @@ class CustomerTest {
         assertTrue(customer.addProduct(product1, 2));
         Collection<Order> allOrders = customer.getPendingOrders();
         Order orders = allOrders.iterator().next();
+        assertEquals(orders.getProduct(), product1);
+        assertEquals(orders.getCustomer(), customer);
         assertEquals(orders.getAmount(), 2);
         assertEquals(product1.getStock(), 3);
     }
