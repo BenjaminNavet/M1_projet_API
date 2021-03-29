@@ -22,7 +22,7 @@ class CustomerTest {
     void setUp() {
         customer = new CustomerImpl("Hubert", "nutella", 1);
         product0 = new ProductImpl(0, "pizza marguarita avec des champis", "marguarita", 10.0, -1, "pizza");
-        //order = new  OrderImpl (product, customer, 2);
+//        order = new  OrderImpl (product0, customer, 2);
     }
 
     /** Check the cutomer's Uid
@@ -145,7 +145,7 @@ class CustomerTest {
         assertEquals(product2.getStock(),1);
         //assertEquals(customer.getPendingOrders().get(0).getAmount(),8); A POURSUIVRE
         customer.clear();
-        assertEquals(customer.getPendingOrders(), customer.getPendingOrders().isEmpty());
+        assertEquals(true, customer.getPendingOrders().isEmpty());
         assertEquals(product0.getStock(),20);
         assertEquals(product1.getStock(),12);
         assertEquals(product2.getStock(),4);
@@ -167,7 +167,7 @@ class CustomerTest {
     @Tag("RobustnessTest")
     @DisplayName("Get invalid order")
     void orderInvalid(){
-        Order order0 = new OrderImpl(product0,customer, 5);
+        Order order0 = new OrderImpl(product0,customer);
         customer.clear();
         assertFalse(order0.cancel());
     }
