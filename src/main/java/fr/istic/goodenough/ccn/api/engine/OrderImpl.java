@@ -48,9 +48,6 @@ public class OrderImpl implements Order{
     @Override
     public boolean setAmount(int amount) {
         if (amount < 0) { return false; }
-//        if (amount > product.getStock() && product.getStock() != -1) {
-//            return false;
-//        }
         if (this.amount < amount) {
             if(this.product.takeFromStock(amount - this.amount)){
                 this.amount = amount;
@@ -79,10 +76,6 @@ public class OrderImpl implements Order{
      * @return true if cancel is success, false if not */
     @Override
     public boolean cancel() {
-       boolean cancel = this.getProduct().putInStock(this.getAmount());
-        if (cancel) {
-           this.setAmount(0);
-       }
-       return cancel;
+       return this.setAmount(0);
     }
 }
