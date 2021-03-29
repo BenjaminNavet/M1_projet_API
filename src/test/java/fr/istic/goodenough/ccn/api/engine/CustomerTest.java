@@ -77,7 +77,7 @@ class CustomerTest {
         //assertEquals(customer.getPendingOrders(), "null" );
     }*/
 
-    /** Check the cutomer's pendingOrders
+    /** Check the customer's pendingOrders
      * Assert that returned object is empty */
     @Test
     @Tag("UnitTest")
@@ -86,7 +86,7 @@ class CustomerTest {
         assertTrue(customer.getPendingOrders().isEmpty());
     }
 
-    /** Check the cutomer's pendingOrders
+    /** Check the customer's pendingOrders
      * Assert that returned object with the good value */
     @Test
     @Tag("UnitTest")
@@ -100,7 +100,7 @@ class CustomerTest {
         assertEquals(order.getAmount(), 4);
     }
 
-    /** Check the cutomer's pendingOrders
+    /** Check the customer's pendingOrders
      * Assert that returned object with the goods values */
     @Test
     @Tag("UnitTest")
