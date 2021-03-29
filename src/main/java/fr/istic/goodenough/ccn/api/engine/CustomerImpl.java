@@ -74,8 +74,20 @@ public class CustomerImpl implements Customer {
      * @return true if order was correctly created or modified, false otherwise */
     @Override
     public boolean addProduct(Product product, int amount) {
+        for (Order o : pendingOrders){
+            if(o.getProduct().equals(product)){
+                return o.setAmount(amount);
+            }
+        }
+        
         Order newOrder = new OrderImpl (product, this);
-        return this.pendingOrders.add(newOrder);
+
+        boolean semiRes = newOrder.setAmount(amount);
+        if (semiRes){
+            this.pendingOrders.add(newOrder);
+            return semiRes;
+        }
+        else {return false;}
     }
 
     /** "Validate" customer basket and "send" all products to the customer,
