@@ -2,6 +2,7 @@ package fr.istic.goodenough.ccn.api.engine;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -103,5 +104,33 @@ class CustomerTest {
         assertEquals(product0.getStock(),20);
         assertEquals(product1.getStock(),12);
         assertEquals(product2.getStock(),4);
+    }
+
+    /**
+     *
+     */
+    @Test
+    @Tag("RobustnessTest")
+    @DisplayName("Get invalid add product")
+    void addProductInvalid(){
+        ProductImpl product0 = new ProductImpl(0, "pizza marguarita avec des champis", "marguarita", 10.0, 20, "pizza");
+        assertFalse(customer.addProduct(product0, 21));
+        assertFalse(customer.addProduct(product0, -1));
+    }
+
+    @Test
+    @Tag("RobustnessTest")
+    @DisplayName("Get invalid order")
+    void orderInvalid(){
+        Order order0 = new OrderImpl(product0,customer, 5);
+        customer.clear();
+        assertFalse(order0.cancel());
+    }
+
+    @Test
+    @Tag("RobustnessTest")
+    @DisplayName("Get invalid clear")
+    void clearInvalid(){
+
     }
 }
