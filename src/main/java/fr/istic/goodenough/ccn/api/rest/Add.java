@@ -27,16 +27,26 @@ public class Add {
     @POST
     @Path("{uid}")
     public Response post(@PathParam("uid") String uid, @QueryParam("pid") String pid, @QueryParam("amount") String amount) {
-        Optional<Customer> customer = engine.getCustomer(Integer.parseInt(uid));
-        Optional<Product> product = engine.getProduct(Integer.parseInt(pid));
+        Optional<Customer> customer;
+        Optional<Product> product;
+        int amnt = Integer.parseInt(amount);
+        try {
+            customer = engine.getCustomer(Integer.parseInt(uid));
+            product = engine.getProduct(Integer.parseInt(pid));
+        } catch (NullPointerException | NumberFormatException e){
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
+
         if (customer.isPresent() && product.isPresent()) {
-            if (customer.get().addProduct(product.get(), Integer.parseInt(amount))) {
+            if (customer.get().addProduct(product.get(), amnt)) {
                 return Response
                         .status(Response.Status.OK)
                         .build();
             }
             return Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .status(Response.Status.BAD_REQUEST)
                     .build();
         }
         return Response

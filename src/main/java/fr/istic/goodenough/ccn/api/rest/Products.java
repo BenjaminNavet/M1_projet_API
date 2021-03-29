@@ -50,7 +50,14 @@ public class Products {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts(@QueryParam("uid") String uid) {
-        Optional<Customer> cust = engine.getCustomer(Integer.parseInt(uid));
+        Optional<Customer> cust;
+        try {
+            cust = engine.getCustomer(Integer.parseInt(uid));
+        } catch (NullPointerException | NumberFormatException e){
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
         if (cust.isPresent()) return Response
                 .status(Response.Status.OK)
                 .entity(getAllProducts())
