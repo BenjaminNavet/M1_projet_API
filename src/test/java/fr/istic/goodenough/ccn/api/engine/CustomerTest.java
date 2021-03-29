@@ -87,6 +87,9 @@ class CustomerTest {
         assertTrue (customer.order());
     }
 
+    /** Try to cancel a customer's order, we assert the product are substracted from there stock by the addProduct
+     *  then that they are put back in stock by the clear.
+     * Assert that order had been clear and that the stock had been updated*/
     @Test
     void clear() {
         ProductImpl product0 = new ProductImpl(0, "pizza marguarita avec des champis", "marguarita", 10.0, 20, "pizza");
