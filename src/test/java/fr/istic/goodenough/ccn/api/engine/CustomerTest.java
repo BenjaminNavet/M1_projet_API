@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,9 +81,49 @@ class CustomerTest {
      * Assert that returned object is empty */
     @Test
     @Tag("UnitTest")
-    @DisplayName("Check PendingOrders")
-    void getPendingOrders() {
+    @DisplayName("Check empty PendingOrders")
+    void getPendingOrdersEmpty() {
         assertTrue(customer.getPendingOrders().isEmpty());
+    }
+
+    /** Check the cutomer's pendingOrders
+     * Assert that returned object with the good value */
+    @Test
+    @Tag("UnitTest")
+    @DisplayName("Check single PendingOrders")
+    void getPendingOrdersSingle() {
+        assertTrue(customer.addProduct(product0, 4));
+        Collection<Order> singleOrders = customer.getPendingOrders();
+        Order order = singleOrders.iterator().next();
+        assertEquals(order.getProduct(), product0);
+        assertEquals(order.getCustomer(), customer);
+        assertEquals(order.getAmount(), 4);
+    }
+
+    /** Check the cutomer's pendingOrders
+     * Assert that returned object with the goods values */
+    @Test
+    @Tag("UnitTest")
+    @DisplayName("Check multiple PendingOrders")
+    void getPendingOrdersMultiple() {
+        ProductImpl product1 = new ProductImpl(1, "pizza regina avec des champis", "regina", 11.0, 12, "pizza");
+        assertTrue(customer.addProduct(product0, 3));
+        assertTrue(customer.addProduct(product1, 4));
+        Collection<Order> singleOrders = customer.getPendingOrders();
+        Iterator<Order> orders = singleOrders.iterator();
+        while (orders.hasNext()) {
+            Order order = orders.next();
+            if (order.getProduct().equals(product0)){
+                assertEquals(order.getAmount(), 3);
+                assertEquals(order.getProduct(), product0);
+                assertEquals(order.getCustomer(), customer);
+            }
+            if (order.getProduct().equals(product1)){
+                assertEquals(order.getAmount(), 4);
+                assertEquals(order.getProduct(), product1);
+                assertEquals(order.getCustomer(), customer);
+            }
+        }
     }
 
     /** Try to add an unlimited product
