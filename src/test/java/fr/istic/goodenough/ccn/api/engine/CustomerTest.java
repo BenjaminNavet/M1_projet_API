@@ -114,7 +114,9 @@ class CustomerTest {
         assertTrue(customer.addProduct(product1, 4));
         assertEquals(product1.getStock(), 1);
         assertTrue(customer.addProduct(product1, 2));
-        assertEquals(order.getAmount(), 2);
+        Collection<Order> allOrders = customer.getPendingOrders();
+        Order orders = allOrders.iterator().next();
+        assertEquals(orders.getAmount(), 2);
         assertEquals(product1.getStock(), 3);
     }
 
