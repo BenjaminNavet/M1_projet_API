@@ -47,14 +47,12 @@ public class OrderImpl implements Order{
      * @return true if product amount in order was successfully modified, false if not. */
     @Override
     public boolean setAmount(int amount) {
-        if (amount < 0) {
-            return false;
-        }
-        if (amount > product.getStock() && product.getStock() != -1) {
-            return false;
-        }
+        if (amount < 0) { return false; }
+//        if (amount > product.getStock() && product.getStock() != -1) {
+//            return false;
+//        }
         if (this.amount < amount) {
-            if(this.product.takeFromStock(Math.abs(this.amount - amount))){
+            if(this.product.takeFromStock(amount - this.amount)){
                 this.amount = amount;
                 return true;
             }
