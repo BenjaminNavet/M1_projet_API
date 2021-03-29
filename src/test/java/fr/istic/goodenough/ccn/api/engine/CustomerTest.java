@@ -109,8 +109,8 @@ class CustomerTest {
         ProductImpl product1 = new ProductImpl(1, "pizza regina avec des champis", "regina", 11.0, 12, "pizza");
         assertTrue(customer.addProduct(product0, 3));
         assertTrue(customer.addProduct(product1, 4));
-        Collection<Order> singleOrders = customer.getPendingOrders();
-        Iterator<Order> orders = singleOrders.iterator();
+        Collection<Order> multipleOrders = customer.getPendingOrders();
+        Iterator<Order> orders = multipleOrders.iterator();
         while (orders.hasNext()) {
             Order order = orders.next();
             if (order.getProduct().equals(product0)){
