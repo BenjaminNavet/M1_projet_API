@@ -2,8 +2,14 @@ package fr.istic.goodenough.ccn.api.rest;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Test;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Response;
+// JUnit 4 Test helper
+import org.junit.Test;
+// JUnit 5 Assertions (!!!)
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class Login extends JerseyTest {
 
     @Override
@@ -13,9 +19,8 @@ public class Login extends JerseyTest {
 
     @Test
     public void test() {
-        String response = target("/products").queryParam("uid", 1).request()
-                    .get(String.class);
-
-       System.out.println("réponse : "+response);
+        Response response = target("/products").queryParam("uid", 1).request().get(Response.class);
+        assertEquals(200,response.getStatus());
+        System.out.println("réponse : " + response.readEntity(String.class));
     }
 }
