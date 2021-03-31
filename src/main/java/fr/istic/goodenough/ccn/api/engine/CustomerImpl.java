@@ -103,13 +103,7 @@ public class CustomerImpl implements Customer {
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
-        Iterator<Order> itr = pendingOrders.iterator();
-        while(itr.hasNext()){
-            Order inter=itr.next();
-            if(inter.cancel()){
-                pendingOrders.remove(inter);
-            }
-        }
+        pendingOrders.removeIf(Order::cancel);
         return this.pendingOrders.isEmpty();
     }
 }
