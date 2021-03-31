@@ -33,7 +33,7 @@ public class ProductsTest extends JerseyTest {
      *  1- Http response code is 200 / http_ok.
      *  2- DTO list and reference list contains the same number of items
      *  3- All product ID in DTO list are present in reference list
-     *  4- All product data in DTO are equals to reference data*/
+     *  4- All product data in DTO are equals to reference data */
     @Test
     @DisplayName("Product list is returned and equals to reference data")
     public void testGetProductsOk() {
