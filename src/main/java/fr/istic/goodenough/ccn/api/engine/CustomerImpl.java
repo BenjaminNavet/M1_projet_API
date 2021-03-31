@@ -93,6 +93,7 @@ public class CustomerImpl implements Customer {
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */
     @Override
     public boolean order() {
+        if (this.pendingOrders.isEmpty()){ return false; }
         this.pendingOrders.clear();
         return true;
     }

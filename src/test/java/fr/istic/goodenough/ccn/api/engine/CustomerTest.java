@@ -115,6 +115,7 @@ class CustomerTest {
      * Assert that returned true that the product has been added and that the stock is -1 */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Add product with an unlimited stock")
     void addProductUnlimitedStock() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, -1, "menu" );
         assertTrue(customer.addProduct(product1, 4));
@@ -125,6 +126,7 @@ class CustomerTest {
      * Assert that returned true that the product has been added and that the stock has been updated */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Add product with a limited stock")
     void addProductLimitedStock() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, 5, "menu" );
         assertTrue(customer.addProduct(product1, 4));
@@ -133,9 +135,29 @@ class CustomerTest {
 
     /** Try to add a limited product
      * Assert that the stock and the amount are correctly updated
-     * Assert that the getPendingOrders returned the good objects*/
+     * Assert that the getPendingOrders returned the good object*/
     @Test
     @Tag("UnitTest")
+    @DisplayName("Change the amount product's, take from stock")
+    void changeProductAmount() {
+        Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, 5, "menu" );
+        assertTrue(customer.addProduct(product1, 2));
+        assertEquals(product1.getStock(), 3);
+        assertTrue(customer.addProduct(product1, 4));
+        Collection<Order> allOrders = customer.getPendingOrders();
+        Order orders = allOrders.iterator().next();
+        assertEquals(orders.getProduct(), product1);
+        assertEquals(orders.getCustomer(), customer);
+        assertEquals(orders.getAmount(), 4);
+        assertEquals(product1.getStock(), 1);
+    }
+
+    /** Try to add a limited product
+     * Assert that the stock and the amount are correctly updated
+     * Assert that the getPendingOrders returned the good object*/
+    @Test
+    @Tag("UnitTest")
+    @DisplayName("Change the amount product's, put in stock")
     void addProductUpdateStock() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, 5, "menu" );
         assertTrue(customer.addProduct(product1, 4));
@@ -149,13 +171,14 @@ class CustomerTest {
         assertEquals(product1.getStock(), 3);
     }
 
-    /** Check the cutomer's orders
-     * Assert that returned object is empty */
+    /** Check the customer's orders
+     * Assert that returned true when customer ordered */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Order done with product")
     void order() {
         customer.order();
-        assert (customer.getPendingOrders().isEmpty());
+        customer.addProduct(product0, 3);
         assertTrue (customer.order());
     }
 
@@ -164,6 +187,7 @@ class CustomerTest {
      * Assert that order had been clear and that the stock had been updated*/
     @Test
     @Tag("UnitTest")
+    @DisplayName("Clear test")
     void clear() {
         ProductImpl product0 = new ProductImpl(0, "pizza marguarita avec des champis", "marguarita", 10.0, 20, "pizza");
         ProductImpl product1 = new ProductImpl(1, "pizza regina avec des champis", "regina", 11.0, 12, "pizza");
