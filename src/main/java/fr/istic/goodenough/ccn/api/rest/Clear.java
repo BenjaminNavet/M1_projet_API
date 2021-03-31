@@ -18,7 +18,7 @@ import java.util.Optional;
 @Path("clear")
 public class Clear {
 
-    private Engine engine;
+    private final Engine engine;
 
     public Clear() {
         engine = EnginePhonyImpl.currentEngine;

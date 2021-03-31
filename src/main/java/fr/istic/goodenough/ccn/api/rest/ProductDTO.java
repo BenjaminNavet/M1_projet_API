@@ -11,7 +11,8 @@ public class ProductDTO {
     public String name;
     public double price;
 
-
+    public ProductDTO() {}
+    
     public ProductDTO(String id, String type, String name, double price) {
         this.pid = id;
         this.type = type;
