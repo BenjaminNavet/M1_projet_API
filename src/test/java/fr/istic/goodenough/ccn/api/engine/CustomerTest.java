@@ -198,8 +198,8 @@ class CustomerTest {
         assertEquals(product0.getStock(),12);
         assertEquals(product1.getStock(),2);
         assertEquals(product2.getStock(),1);
-        //assertEquals(customer.getPendingOrders().get(0).getAmount(),8); A POURSUIVRE
         customer.clear();
+        assertFalse(customer.order());
         assertEquals(true, customer.getPendingOrders().isEmpty());
         assertEquals(product0.getStock(),20);
         assertEquals(product1.getStock(),12);
@@ -223,17 +223,8 @@ class CustomerTest {
     @Tag("RobustnessTest")
     @DisplayName("Get invalid order")
     void orderInvalid(){
-        customer.order();
         assertTrue (customer.getPendingOrders().isEmpty());
         assertFalse (customer.order());
     }
 
-    /*
-    @Test
-    @Tag("RobustnessTest")
-    @DisplayName("Get invalid clear")
-    void clearInvalid(){
-
-    }
-     */
 }
