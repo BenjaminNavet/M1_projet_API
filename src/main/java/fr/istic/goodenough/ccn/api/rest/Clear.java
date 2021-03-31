@@ -35,22 +35,22 @@ public class Clear {
         try {
             customer = engine.getCustomer(Integer.parseInt(uid));
         } catch (NullPointerException | NumberFormatException e){
-            return Response
+            return Response // Invalid parameters format
                     .status(Response.Status.BAD_REQUEST)
                     .build();
         }
         if (customer.isPresent()) {
             if (customer.get().clear()){
-                return Response
+                return Response // Response OK
                         .status(Response.Status.OK)
                         .entity("")
                         .build();
             }
-            return Response
+            return Response // Something went wrong when clearing
                     .status(Response.Status.BAD_REQUEST)
                     .build();
         }
-        return Response
+        return Response // Customer not found
                 .status(Response.Status.NOT_FOUND)
                 .entity("{\"message\" : \"Account not found\"}")
                 .build();

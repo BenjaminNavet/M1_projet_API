@@ -54,15 +54,17 @@ public class Products {
         try {
             cust = engine.getCustomer(Integer.parseInt(uid));
         } catch (NullPointerException | NumberFormatException e){
-            return Response
+            return Response // Invalid parameters format
                     .status(Response.Status.BAD_REQUEST)
                     .build();
         }
-        if (cust.isPresent()) return Response
-                .status(Response.Status.OK)
-                .entity(getAllProducts())
-                .build();
-        return Response
+        if (cust.isPresent()) {
+            return Response // Response Ok
+                    .status(Response.Status.OK)
+                    .entity(getAllProducts())
+                    .build();
+        }
+        return Response // Customer uid not found
                 .status(Response.Status.UNAUTHORIZED)
                 .entity("{\"message\" : \"You must be logged to access this ressource\"}")
                 .build();

@@ -35,12 +35,12 @@ public class Login {
     public Response get(@QueryParam("name") String name, @QueryParam("passwd") String passwd) {
         Optional<Customer> cust = engine.getCustomerByCredentials(name,passwd);
         if (cust.isPresent()) {
-            return Response
+            return Response // Response OK
                     .status(Response.Status.OK)
                     .entity(makeCustomerDTO(cust.get()))
                     .build();
         }
-        return Response
+        return Response // Customer not found
                 .status(Response.Status.NOT_FOUND)
                 .entity("{\"message\" : \"Customer not found / Invalid credentials\"}")
                 .build();
