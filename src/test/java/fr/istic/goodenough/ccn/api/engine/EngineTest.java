@@ -145,7 +145,7 @@ class EngineTest {
     }
 
     /** Try to get all customers from engine.
-     * Asserts that all the data samples are provided by trying to get them from the reference map */
+     * Asserts that all the data samples are provided by checking keys from the reference map */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get all customers")
