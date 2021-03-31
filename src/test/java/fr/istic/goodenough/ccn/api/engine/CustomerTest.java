@@ -177,7 +177,6 @@ class CustomerTest {
     @Tag("UnitTest")
     @DisplayName("Order done with product")
     void order() {
-        customer.order();
         customer.addProduct(product0, 3);
         assertTrue (customer.order());
     }
