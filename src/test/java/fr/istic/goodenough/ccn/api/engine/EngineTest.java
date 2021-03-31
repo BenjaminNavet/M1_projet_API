@@ -100,14 +100,15 @@ class EngineTest {
     }
 
     /** Try to get all products from engine.
-     * Asserts that all the data samples are provided by trying to get them from the reference map */
+     * Asserts that all the data samples are provided by checking keys from the reference map */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get all products")
     void testGetAllProducts() {
         Collection<Product> engineProducts = engine.getAllProducts();
+        assertEquals(engineProducts.size(), products.size());
         for (Product engineProduct: engineProducts){
-            assertNotNull(products.get(Integer.toString(engineProduct.getPid())));
+            assertTrue(products.containsKey(Integer.toString(engineProduct.getPid())));
         }
     }
 
@@ -150,8 +151,9 @@ class EngineTest {
     @DisplayName("Get all customers")
     void testGetAllCustomers() {
         Collection<Customer> engineCustomers = engine.getAllCustomers();
+        assertEquals(engineCustomers.size(), customers.size());
         for (Customer engineCustomer: engineCustomers){
-            assertNotNull(customers.get(Integer.toString(engineCustomer.getUid())));
+            assertTrue(customers.containsKey(Integer.toString(engineCustomer.getUid())));
         }
     }
 
