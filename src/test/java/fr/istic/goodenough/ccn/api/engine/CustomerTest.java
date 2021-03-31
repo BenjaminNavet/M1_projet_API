@@ -62,21 +62,6 @@ class CustomerTest {
         assertEquals(customer.getCredit(), -1);
     }
 
-/*
-    @ParameterizedTest
-    @DisplayName("Check PendingOrders")
-    @CsvSource({"product1, customer, 3","product2, customer, 4","product3, customer,5"})
-    void getPendingOrders(Collection<Order> collectionExpected) {
-        Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, -1, "menu" );
-        Product product2 = new ProductImpl(2, "sandwich jambon beurre", "parisien", 4, -1, "sandwich");
-        Product product3 = new ProductImpl(3, "hot dog", "hot dog vege", 9, -1, "vegetarien");
-        customer.addProduct(product1, 3);
-        customer.addProduct(product2, 4);
-        customer.addProduct(product3, 5);
-        assertEquals (collectionExpected, customer.getPendingOrders());
-        //assertEquals(customer.getPendingOrders(), "null" );
-    }*/
-
     /** Check the customer's pendingOrders
      * Assert that returned object is empty */
     @Test
@@ -197,9 +182,8 @@ class CustomerTest {
         assertEquals(product2.getStock(),4);
     }
 
-    /**
-     *
-     */
+    /** Try to add product that overtake the stock
+     *  Assert false that product could not be add*/
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid add product")
@@ -209,19 +193,23 @@ class CustomerTest {
         assertFalse(customer.addProduct(product0, -1));
     }
 
+    /** Try to order a empty basket
+     * Assert false, the basket is empty so it is not possible to order*/
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid order")
     void orderInvalid(){
-        Order order0 = new OrderImpl(product0,customer);
-        customer.clear();
-        assertFalse(order0.cancel());
+        customer.order();
+        assertTrue (customer.getPendingOrders().isEmpty());
+        assertFalse (customer.order());
     }
 
+    /*
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid clear")
     void clearInvalid(){
 
     }
+     */
 }
