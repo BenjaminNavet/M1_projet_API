@@ -5,6 +5,7 @@ import org.glassfish.jersey.test.JerseyTest;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 // JUnit 4 Test helper
 import org.junit.Test;
 // JUnit 5 Assertions (!!!)
@@ -23,10 +24,11 @@ public class Login extends JerseyTest {
 
     @Test
     public void test() {
-        List<ProductDTO> products = target("/products")
+        Response response= target("/products")
                 .queryParam("uid", 1)
                 .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<ProductDTO>>(){});
+                .get(Response.class);
+        List<ProductDTO> products = response.readEntity(new GenericType<List<ProductDTO>>(){});
         for (ProductDTO p : products) {
             System.out.println(p.pid+" "+p.name+" ("+p.type+") costs "+p.price);
         }
