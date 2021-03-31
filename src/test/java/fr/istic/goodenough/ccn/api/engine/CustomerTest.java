@@ -66,7 +66,7 @@ class CustomerTest {
      * Assert that returned object is empty */
     @Test
     @Tag("UnitTest")
-    @DisplayName("Check empty PendingOrders")
+    @DisplayName("Check if PendingOrders is empty")
     void getPendingOrdersEmpty() {
         assertTrue(customer.getPendingOrders().isEmpty());
     }
@@ -225,5 +225,4 @@ class CustomerTest {
         assertTrue (customer.getPendingOrders().isEmpty());
         assertFalse (customer.order());
     }
-
 }
