@@ -11,7 +11,7 @@ public class CustomerImpl implements Customer {
     final private String name;
     final private int uid;
     private final double credit;
-    private final Collection<Order> pendingOrders;
+    private Collection<Order> pendingOrders;
     final private String passwd;
 
     /**
@@ -102,13 +102,13 @@ public class CustomerImpl implements Customer {
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
-        boolean potentialIssue;
-        for(Order item : pendingOrders){
-            if(!item.cancel()){
-                return false;
+        Iterator<Order> itr = pendingOrders.iterator();
+        while(itr.hasNext()){
+            Order inter=itr.next();
+            if(inter.cancel()){
+                pendingOrders.remove(inter);
             }
         }
-        this.pendingOrders.clear();
-        return true;
+        return this.pendingOrders.isEmpty();
     }
 }
