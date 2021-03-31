@@ -13,6 +13,8 @@ public class CustomerDTO {
 //    public String name;
 //    public Collection<ProductDTO> orders;
 
+    public CustomerDTO(){}
+
     public CustomerDTO(String uid/*, String name*//*, double credit*/) {
         this.uid = uid;
 //        this.name = name;
