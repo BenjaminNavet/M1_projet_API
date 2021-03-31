@@ -73,12 +73,9 @@ public class ProductImpl implements Product {
      * @return true if operation success, false if not */
     @Override
     public boolean takeFromStock(int amount) {
-        if (this.stock == -1){
-             return true;
-        }
-        if (amount > stock) {
-            return false;
-        }
+        if (amount < 0)       { return false; }
+        if (this.stock == -1) { return true;  }
+        if (amount > stock)   { return false; }
         else {
             this.stock -= amount;
             return true;
@@ -90,9 +87,8 @@ public class ProductImpl implements Product {
      * @return true if operation success, false if not */
     @Override
     public boolean putInStock(int amount) {
-        if (this.stock == -1){
-            return true;
-        }
+        if (amount < 0)       { return false; }
+        if (this.stock == -1) { return true; }
         this.stock += amount;
         return true;
     }
