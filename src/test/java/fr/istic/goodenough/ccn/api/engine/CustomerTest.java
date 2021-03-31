@@ -78,8 +78,7 @@ class CustomerTest {
     @DisplayName("Check single PendingOrders")
     void getPendingOrdersSingle() {
         assertTrue(customer.addProduct(product0, 4));
-        Collection<Order> singleOrders = customer.getPendingOrders();
-        Order order = singleOrders.iterator().next();
+        Order order = customer.getPendingOrders().iterator().next();
         assertEquals(order.getProduct(), product0);
         assertEquals(order.getCustomer(), customer);
         assertEquals(order.getAmount(), 4);
@@ -94,10 +93,7 @@ class CustomerTest {
         ProductImpl product1 = new ProductImpl(1, "pizza regina avec des champis", "regina", 11.0, 12, "pizza");
         assertTrue(customer.addProduct(product0, 3));
         assertTrue(customer.addProduct(product1, 4));
-        Collection<Order> multipleOrders = customer.getPendingOrders();
-        Iterator<Order> orders = multipleOrders.iterator();
-        while (orders.hasNext()) {
-            Order order = orders.next();
+        for (Order order : customer.getPendingOrders()) {
             if (order.getProduct().equals(product0)){
                 assertEquals(order.getAmount(), 3);
                 assertEquals(order.getProduct(), product0);
@@ -138,14 +134,13 @@ class CustomerTest {
      * Assert that the getPendingOrders returned the good object*/
     @Test
     @Tag("UnitTest")
-    @DisplayName("Change the amount product's, take from stock")
+    @DisplayName("Change the product's amount, take from stock")
     void changeProductAmount() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, 5, "menu" );
         assertTrue(customer.addProduct(product1, 2));
         assertEquals(product1.getStock(), 3);
         assertTrue(customer.addProduct(product1, 4));
-        Collection<Order> allOrders = customer.getPendingOrders();
-        Order orders = allOrders.iterator().next();
+        Order orders = customer.getPendingOrders().iterator().next();
         assertEquals(orders.getProduct(), product1);
         assertEquals(orders.getCustomer(), customer);
         assertEquals(orders.getAmount(), 4);
@@ -157,7 +152,7 @@ class CustomerTest {
      * Assert that the getPendingOrders returned the good object*/
     @Test
     @Tag("UnitTest")
-    @DisplayName("Change the amount product's, put in stock")
+    @DisplayName("Change the product's amount, and test the method putInStock of ProductImpl class")
     void addProductUpdateStock() {
         Product product1 = new ProductImpl(1, "plats artisanaux", "chou farci", 5, 5, "menu" );
         assertTrue(customer.addProduct(product1, 4));
