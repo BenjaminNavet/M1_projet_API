@@ -102,8 +102,11 @@ public class CustomerImpl implements Customer {
      * @return true if cancel of all order is success, false otherwise */
     @Override
     public boolean clear() {
+        boolean potentialIssue;
         for(Order item : pendingOrders){
-            item.cancel();
+            if(!item.cancel()){
+                return false;
+            }
         }
         this.pendingOrders.clear();
         return true;
