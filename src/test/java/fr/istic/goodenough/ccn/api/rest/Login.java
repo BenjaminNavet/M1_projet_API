@@ -28,6 +28,7 @@ public class Login extends JerseyTest {
                 .queryParam("uid", 1)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
+        assertEquals(200, response.getStatus());
         List<ProductDTO> products = response.readEntity(new GenericType<List<ProductDTO>>(){});
         for (ProductDTO p : products) {
             System.out.println(p.pid+" "+p.name+" ("+p.type+") costs "+p.price);
