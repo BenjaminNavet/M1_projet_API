@@ -3,6 +3,7 @@ package fr.istic.goodenough.ccn.api.engine;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 /** This _NOT_ a DTO.
  * @author plouzeau */
