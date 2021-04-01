@@ -99,7 +99,7 @@ public class ClearTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / bad_request.*/
+     *  1- Http response code is 404 / http_not_found.*/
     @Test
     @DisplayName("Customer basket is not cleared with wrong uid")
     public void testClearWrongUid(){
@@ -109,8 +109,8 @@ public class ClearTest extends JerseyTest {
                 .request(MediaType.APPLICATION_JSON)
                 .delete(Response.class);
 
-        // Http response code is 400 / bad_request
-        assertEquals(400, response.getStatus());
+        // Http response code is 404 / http_not_found
+        assertEquals(404, response.getStatus());
 
     }
 
