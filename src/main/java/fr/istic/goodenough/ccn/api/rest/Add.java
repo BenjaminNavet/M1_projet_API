@@ -29,10 +29,11 @@ public class Add {
     public Response post(@PathParam("uid") String uid, @QueryParam("pid") String pid, @QueryParam("amount") String amount) {
         Optional<Customer> customer;
         Optional<Product> product;
-        int amnt = Integer.parseInt(amount);
+        int amnt;
         try {
             customer = engine.getCustomer(Integer.parseInt(uid));
             product = engine.getProduct(Integer.parseInt(pid));
+            amnt = Integer.parseInt(amount);
         } catch (NullPointerException | NumberFormatException e){
             return Response // Invalid parameters format
                     .status(Response.Status.BAD_REQUEST)
