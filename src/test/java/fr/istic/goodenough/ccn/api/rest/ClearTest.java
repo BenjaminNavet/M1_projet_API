@@ -76,7 +76,26 @@ public class ClearTest extends JerseyTest {
     }
 
 
-    /** Test if the customer basket isn't correctly emptied with a not valid uid as param.
+    /** Test if the customer basket isn't correctly emptied with an invalid uid as param.
+     *  Init :
+     *  1- Build and execute request.
+     *  Expected :
+     *  1- Http response code is 400 / bad_request.*/
+    @Test
+    @DisplayName("Customer basket is not cleared with invalid uid")
+    public void testClearInvalidUid(){
+
+        // Build and execute request
+        Response response= target("/clear/wrong")
+                .request(MediaType.APPLICATION_JSON)
+                .delete(Response.class);
+
+        // Http response code is 400 / bad_request
+        assertEquals(400, response.getStatus());
+
+    }
+
+    /** Test if the customer basket isn't correctly emptied with wrong uid as param.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -86,7 +105,7 @@ public class ClearTest extends JerseyTest {
     public void testClearWrongUid(){
 
         // Build and execute request
-        Response response= target("/clear/wrong")
+        Response response= target("/clear/100000")
                 .request(MediaType.APPLICATION_JSON)
                 .delete(Response.class);
 
