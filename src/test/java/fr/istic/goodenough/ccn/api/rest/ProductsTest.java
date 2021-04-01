@@ -58,4 +58,61 @@ public class ProductsTest extends JerseyTest {
             assertEquals(product.price,refProduct.getPrice());
         }
     }
+
+    @Test
+    @DisplayName("Add attributes to product list")
+    public void testGetProductOkWithAttribute() {
+        // Build and execute request
+        Response response= target("/products")
+                .queryParam("uid", 1)
+                .queryParam("add","abdc")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(200, response.getStatus()); // Assert HTTP_OK
+        // Build DTO list
+        List<ProductDTO> products = response.readEntity(new GenericType<List<ProductDTO>>(){});
+        // Build product list from CSV
+        Map<String, Product> productData = PhonyData.generatePhonyProducts();
+        // Check that DTO list has the number of items as the reference list
+        assertEquals(productData.size(),products.size());
+        for (ProductDTO product : products) {
+            assertTrue(productData.containsKey(product.pid)); // Check that DTO product exist in reference data
+            Product refProduct = productData.get(product.pid);
+            // Check DTO data is the same as reference data
+            assertEquals(product.name,refProduct.getFullName());
+            assertEquals(product.type,refProduct.getType());
+            assertEquals(product.price,refProduct.getPrice());
+        }
+    }
+
+    @Test
+    @DisplayName("Product uid is wrong")
+    public void testGetProductWrong() {
+        Response response= target("/products")
+                .queryParam("uid", 6)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(401, response.getStatus()); // HTTP_ERROR_UNAUTHORIZED
+    }
+
+    @Test
+    @DisplayName("Product uid is empty")
+    public void testGetProductsUidEmpty() {
+        Response response= target("/products")
+                .queryParam("uid", "")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(400, response.getStatus()); // Assert HTTP_ERROR_UNAUTHORIZED
+        }
+
+    @Test
+    @DisplayName("Wrong uid")
+    public void testGetProductsWrongUid() {
+        Response response= target("/products")
+                .queryParam("uid", "548641658")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(401, response.getStatus()); // Assert HTTP_ERROR_UNAUTHORIZED
+    }
 }
+

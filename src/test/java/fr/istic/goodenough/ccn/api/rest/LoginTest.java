@@ -42,6 +42,15 @@ public class LoginTest extends JerseyTest {
         assertEquals("3",customer.uid);
     }
 
+    /**
+     *Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected
+     * even if there is a usless attribut
+     * *  Init :
+     *      *  1- Build and execute request.
+     *      *  2- Build customerDTO object from JSON.
+     *      *  Expected :
+     *      *  1- Http response code is 200 / http_ok.
+     *      *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
     @Test
     @DisplayName("With more attributes than necessary user uid is returned")
     public void testGetUserOkWithAttribute(){
