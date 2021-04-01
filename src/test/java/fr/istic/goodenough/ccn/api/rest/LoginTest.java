@@ -42,15 +42,14 @@ public class LoginTest extends JerseyTest {
         assertEquals("3",customer.uid);
     }
 
-    /**
-     *Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected
-     * even if there is a usless attribut
-     * *  Init :
-     *      *  1- Build and execute request.
-     *      *  2- Build customerDTO object from JSON.
-     *      *  Expected :
-     *      *  1- Http response code is 200 / http_ok.
-     *      *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
+    /** Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected
+     *  even if there is a useless attribut
+     *  Init :
+     *  1- Build and execute request.
+     *  2- Build customerDTO object from JSON.
+     *  Expected :
+     *  1- Http response code is 200 / http_ok.
+     *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
     @Test
     @DisplayName("With more attributes than necessary user uid is returned")
     public void testGetUserOkWithAttribute(){
@@ -69,15 +68,13 @@ public class LoginTest extends JerseyTest {
         assertEquals("3",customer.uid);
     }
 
-    /**
-     *Test if the request of a connection fail with a wrong password by returning a 404 response code
-     * even if there is a usless attribut
-     * *  Init :
-     *      *  1- Build and execute request.
-     *      *  2- Build customerDTO object from JSON.
-     *      *  Expected :
-     *      *  1- Http response code is 404
-     *      *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
+    /** Test if the request of a connection fail with a wrong password by returning a 404 response code
+     *  even if there is a useless attribut
+     *  Init :
+     *  1- Build and execute request.
+     *  2- Build customerDTO object from JSON.
+     *  Expected :
+     *  1- Http response code is 404 */
     @Test
     @DisplayName("Wrong password")
     public void testWrongPassword(){
@@ -91,6 +88,12 @@ public class LoginTest extends JerseyTest {
         assertEquals(404, response.getStatus());
     }
 
+    /** Test if the request of a connection fail with an empty password by returning a 404 response code
+     *  Init :
+     *  1- Build and execute request.
+     *  2- Build customerDTO object from JSON.
+     *  Expected :
+     *  1- Http response code is 404 */
     @Test
     @DisplayName("password empty")
     public void testEmptyPassword(){
@@ -108,6 +111,12 @@ public class LoginTest extends JerseyTest {
         assertEquals(null,customer.uid);
     }
 
+    /** Test if a 404 error occure during a loging request with a empty loging
+     *  Init :
+     *  1- Build and execute request.
+     *  2- Build customerDTO object from JSON.
+     *  Expected :
+     *  1- Http response code is 404 */
     @Test
     @DisplayName("Login empty")
     public void testEmptyLogin(){
@@ -117,10 +126,15 @@ public class LoginTest extends JerseyTest {
                 .queryParam("passwd","ab")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
-        // Assert HTTP_OK
         assertEquals(404, response.getStatus());
     }
 
+    /** Test if the request of a connection fail with a wrong login by returning a 404 response code
+     *  Init :
+     *  1- Build and execute request.
+     *  2- Build customerDTO object from JSON.
+     *  Expected :
+     *  1- Http response code is 404 */
     @Test
     @DisplayName("Login wrong")
     public void testWrongLogin(){
@@ -130,8 +144,8 @@ public class LoginTest extends JerseyTest {
                 .queryParam("passwd","abcd")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
-        // Assert HTTP_OK
         assertEquals(404, response.getStatus());
     }
 
 }
+
