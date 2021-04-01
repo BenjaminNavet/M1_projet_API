@@ -69,6 +69,15 @@ public class LoginTest extends JerseyTest {
         assertEquals("3",customer.uid);
     }
 
+    /**
+     *Test if the request of a connection fail with a wrong password by returning a 404 response code
+     * even if there is a usless attribut
+     * *  Init :
+     *      *  1- Build and execute request.
+     *      *  2- Build customerDTO object from JSON.
+     *      *  Expected :
+     *      *  1- Http response code is 404
+     *      *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
     @Test
     @DisplayName("Wrong password")
     public void testWrongPassword(){
