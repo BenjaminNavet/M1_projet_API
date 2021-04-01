@@ -41,4 +41,79 @@ public class LoginTest extends JerseyTest {
         // Check customer id
         assertEquals("3",customer.uid);
     }
+
+    @Test
+    @DisplayName("With more attributes than necessary user uid is returned")
+    public void testGetUserOkWithAttribute(){
+        // Build and execute request
+        Response response= target("/login")
+                .queryParam("name","nemo")
+                .queryParam("passwd","98765")
+                .queryParam("sup", "acde")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        // Assert HTTP_OK
+        assertEquals(200, response.getStatus());
+        // Build DTO
+        CustomerDTO customer = response.readEntity(new GenericType<CustomerDTO>(){});
+        // Check customer id
+        assertEquals("3",customer.uid);
+    }
+
+    @Test
+    @DisplayName("Wrong password")
+    public void testWrongPassword(){
+        // Build and execute request
+        Response response= target("/login")
+                .queryParam("name","nemo")
+                .queryParam("passwd","login")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        // Assert HTTP_ERROR
+        assertEquals(404, response.getStatus());
+    }
+
+    @Test
+    @DisplayName("password empty")
+    public void testEmptyPassword(){
+        // Build and execute request
+        Response response= target("/login")
+                .queryParam("name","nemo")
+                .queryParam("passwd","")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        // Assert HTTP_Notfound
+        assertEquals(404, response.getStatus());
+        // Build DTO
+        CustomerDTO customer = response.readEntity(new GenericType<CustomerDTO>(){});
+        // Check customer id
+        assertEquals(null,customer.uid);
+    }
+
+    @Test
+    @DisplayName("Login empty")
+    public void testEmptyLogin(){
+        // Build and execute request
+        Response response= target("/login")
+                .queryParam("name","")
+                .queryParam("passwd","ab")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        // Assert HTTP_OK
+        assertEquals(404, response.getStatus());
+    }
+
+    @Test
+    @DisplayName("Login wrong")
+    public void testWrongLogin(){
+        // Build and execute request
+        Response response= target("/login")
+                .queryParam("name","")
+                .queryParam("passwd","abcd")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        // Assert HTTP_OK
+        assertEquals(404, response.getStatus());
+    }
+
 }
