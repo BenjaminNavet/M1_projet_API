@@ -120,7 +120,7 @@ public class ClearTest extends JerseyTest {
      *  Expected :
      *  1- Http response code is 404 / http_not_found */
     @Test
-    @DisplayName("Customer basket is not cleared with wrong uid")
+    @DisplayName("Customer basket is not cleared with empty uid")
     public void testClearEmptyUid(){
 
         // Build and execute request
