@@ -212,7 +212,7 @@ public class OrderTest extends JerseyTest {
         assertEquals(3,product2.getStock());
     }
 
-    /** Test if the customer basket is correctly emptied by the api call on /order with a valid uid as param.
+    /** Test if the order not correctly worked with a valid uid as param but an empty basket.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
