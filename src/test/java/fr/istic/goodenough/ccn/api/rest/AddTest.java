@@ -6,7 +6,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 // JUnit 4 Test helper
@@ -226,7 +225,6 @@ public class AddTest extends JerseyTest {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.text(""));
         assertEquals(400, response.getStatus(), "Wrong http code");
-        String body = response.readEntity(String.class);
         assertTrue(engine.getCustomer(1).get().getPendingOrders().isEmpty(),"Customer basket should be empty");
     }
 
@@ -247,7 +245,6 @@ public class AddTest extends JerseyTest {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.text(""));
         assertEquals(400 , response.getStatus(), "Wrong http code");
-        String body = response.readEntity(String.class);
         assertTrue(engine.getCustomer(1).get().getPendingOrders().isEmpty(),"Customer basket should be empty");
     }
 
