@@ -142,5 +142,37 @@ public class ProductsTest extends JerseyTest {
                 .get(Response.class);
         assertEquals(401, response.getStatus()); // Assert HTTP_UNAUTHORIZED
     }
+
+    /** Test if a 404 error occur during a product request with an add of path param
+     *  Init :
+     *  1- Build and execute request.
+     *  Expected :
+     *  1- Http response code is 404 / http_not_found
+     * */
+    @Test
+    @DisplayName("Added path param")
+    public void testGetProductsWrongPathParam() {
+        Response response= target("/products/pouet")
+                .queryParam("uid", "1")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(404, response.getStatus()); // Assert HTTP_NOT_FOUND
+    }
+
+    /** Test if a 404 error occur during a product request with a wrong queryParam
+     *  Init :
+     *  1- Build and execute request.
+     *  Expected :
+     *  1- Http response code is 404 / http_not_found
+     * */
+    @Test
+    @DisplayName("Use a wrong queryParam")
+    public void testFakeQueryParam() {
+        Response response= target("/products/pouet")
+                .queryParam("pid", "1")
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class);
+        assertEquals(404, response.getStatus()); // Assert HTTP_NOT_FOUND
+    }
 }
 
