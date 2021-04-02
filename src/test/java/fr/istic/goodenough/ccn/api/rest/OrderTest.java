@@ -212,5 +212,21 @@ public class OrderTest extends JerseyTest {
         assertEquals(3,product2.getStock());
     }
 
+    /** Test if the customer basket is correctly emptied by the api call on /order with a valid uid as param.
+     *  Init :
+     *  1- Build and execute request.
+     *  Expected :
+     *  1- Http response code is 400 / bad_request. */
+    @Test
+    @DisplayName("Customer basket is empty and try to order")
+    public void testOrderEmpty(){
+
+        // Build and execute request
+        Response response= target("/order/1")
+                .request(MediaType.APPLICATION_JSON)
+                .put(Entity.text(""));
+        assertEquals(400, response.getStatus()); // Assert bad_request
+    }
+
 
 }
