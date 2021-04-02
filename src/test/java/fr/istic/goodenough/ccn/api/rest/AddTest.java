@@ -84,8 +84,8 @@ public class AddTest extends JerseyTest {
         assertTrue(body.contains("Account not found"));
     }
 
-    /** Test if the request is properly rejected and no order is added by the api call on /add with an empty uid and
-     *  valid pid/amount in params.
+    /** Test if the request is properly rejected and no order is added by the api call on /add with an empty uid in path
+     *  and valid pid/amount in params.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -102,8 +102,8 @@ public class AddTest extends JerseyTest {
         assertEquals(404, response.getStatus(), "Wrong http code");
     }
 
-    /** Test if the request is properly rejected and no order is added by the api call on /add with a wrong uid format and
-     *  valid pid/amount in params.
+    /** Test if the request is properly rejected and no order is added by the api call on /add with a wrong uid format
+     *  and valid pid/amount in params.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -123,7 +123,7 @@ public class AddTest extends JerseyTest {
     //#########
     // Amount
     //#########
-    /** Test if the request is properly rejected and no order is added by the api call on /add with a too mutch amount
+    /** Test if the request is properly rejected and no order is added by the api call on /add with a too much amount
      *  on a limited stock product.
      *  Init :
      *  1- Build and execute request.
@@ -131,8 +131,8 @@ public class AddTest extends JerseyTest {
      *  1- Http response code is 400 / http_bad_request
      *  2- Customer basket remains empty */
     @Test
-    @DisplayName("Add too mutch quantity of a product")
-    public void testAddProductTooMutch() {
+    @DisplayName("Add too much quantity of a product")
+    public void testAddProductTooMuch() {
         // Build and execute request
         Response response= target("/add/1")
                 .queryParam("pid", 45)

@@ -97,28 +97,24 @@ public class ProductsTest extends JerseyTest {
         }
     }
 
-    /** Test if the product list returned by the api call on /products path with a wrong uid as param
+    /** Test if the product list returned by the api call on /products path with a non integer uid as param
      *  Init :
      *  1- Build and execute request.
-     *  2- Build DTO list from JSON.
-     *  3- Build reference product list from CSV.
      *  Expected :
-     *  1- Http response code is 401 / HTTP_ERROR_UNAUTHORIZED. */
+     *  1- Http response code is 400 / HTTP_BAD_REQUEST. */
     @Test
     @DisplayName("Product uid is wrong")
-    public void testGetProductWrong() {
+    public void testGetProductLettersUid() {
         Response response= target("/products")
-                .queryParam("uid", 6)
+                .queryParam("uid", "wrong")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
-        assertEquals(401, response.getStatus()); // HTTP_ERROR_UNAUTHORIZED
+        assertEquals(400, response.getStatus()); // HTTP_BAD_REQUEST
     }
 
     /** Test if the product list returned by the api call on /products path with an empty uid as param
      *  Init :
      *  1- Build and execute request.
-     *  2- Build DTO list from JSON.
-     *  3- Build reference product list from CSV.
      *  Expected :
      *  1- Http response code is 400 / HTTP_BAD_REQUEST. */
     @Test
@@ -131,11 +127,9 @@ public class ProductsTest extends JerseyTest {
         assertEquals(400, response.getStatus()); // Assert HTTP_BAD_REQUEST
         }
 
-    /** Test if a 401 error occure during a product request with a wrong uid
+    /** Test if a 401 error occur during a product request with a wrong uid
      *  Init :
      *  1- Build and execute request.
-     *  2- Build DTO list from JSON.
-     *  3- Build reference product list from CSV.
      *  Expected :
      *  1- Http response code is 401 HTTP_UNAUTHORIZED
      * */

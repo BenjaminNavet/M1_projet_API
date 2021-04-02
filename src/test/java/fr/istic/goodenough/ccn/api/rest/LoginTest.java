@@ -72,9 +72,8 @@ public class LoginTest extends JerseyTest {
      *  even if there is a useless attribut
      *  Init :
      *  1- Build and execute request.
-     *  2- Build customerDTO object from JSON.
      *  Expected :
-     *  1- Http response code is 404 */
+     *  1- Http response code is 404 / http_not_found */
     @Test
     @DisplayName("Wrong password")
     public void testWrongPassword(){
@@ -84,16 +83,15 @@ public class LoginTest extends JerseyTest {
                 .queryParam("passwd","login")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
-        // Assert HTTP_ERROR
+        // Assert HTTP_Notfound
         assertEquals(404, response.getStatus());
     }
 
     /** Test if the request of a connection fail with an empty password by returning a 404 response code
      *  Init :
      *  1- Build and execute request.
-     *  2- Build customerDTO object from JSON.
      *  Expected :
-     *  1- Http response code is 404 */
+     *  1- Http response code is 404 / http_not_found */
     @Test
     @DisplayName("password empty")
     public void testEmptyPassword(){
@@ -105,18 +103,13 @@ public class LoginTest extends JerseyTest {
                 .get(Response.class);
         // Assert HTTP_Notfound
         assertEquals(404, response.getStatus());
-        // Build DTO
-        CustomerDTO customer = response.readEntity(new GenericType<CustomerDTO>(){});
-        // Check customer id
-        assertEquals(null,customer.uid);
     }
 
-    /** Test if a 404 error occure during a loging request with a empty loging
+    /** Test if a 404 error occur during a logging request with a empty logging
      *  Init :
      *  1- Build and execute request.
-     *  2- Build customerDTO object from JSON.
      *  Expected :
-     *  1- Http response code is 404 */
+     *  1- Http response code is 404 / http_not_found */
     @Test
     @DisplayName("Login empty")
     public void testEmptyLogin(){
@@ -132,9 +125,8 @@ public class LoginTest extends JerseyTest {
     /** Test if the request of a connection fail with a wrong login by returning a 404 response code
      *  Init :
      *  1- Build and execute request.
-     *  2- Build customerDTO object from JSON.
      *  Expected :
-     *  1- Http response code is 404 */
+     *  1- Http response code is 404 / http_not_found */
     @Test
     @DisplayName("Login wrong")
     public void testWrongLogin(){
@@ -146,6 +138,4 @@ public class LoginTest extends JerseyTest {
                 .get(Response.class);
         assertEquals(404, response.getStatus());
     }
-
 }
-
