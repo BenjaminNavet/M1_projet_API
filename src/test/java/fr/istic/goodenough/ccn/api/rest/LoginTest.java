@@ -18,13 +18,13 @@ public class LoginTest extends JerseyTest {
         return new ResourceConfig(Login.class);
     }
 
-    /** Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected
+    /** Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected.
      *  Init :
      *  1- Build and execute request.
      *  2- Build customerDTO object from JSON.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
+     *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data. */
     @Test
     @DisplayName("User credentials are valid and user uid is returned")
     public void testGetUserOk(){
@@ -43,13 +43,13 @@ public class LoginTest extends JerseyTest {
     }
 
     /** Test if the customer uid returned by the api on /login path with a valid name and password is the same as expected
-     *  even if there is a useless attribut
+     *  even if there is a useless attribut.
      *  Init :
      *  1- Build and execute request.
      *  2- Build customerDTO object from JSON.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data */
+     *  2- CustomerDTO uid is equal to the value associated with the given credentials in the test data. */
     @Test
     @DisplayName("With more attributes than necessary user uid is returned")
     public void testGetUserOkWithAttribute(){
@@ -69,12 +69,12 @@ public class LoginTest extends JerseyTest {
     }
 
     /** Test if the request of a connection fail with a wrong password by returning a 404 response code
-     *  even if there is a useless attribut
+     *  even if there is a useless attribut.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found
-     *  2- Json message contains "Customer not found / Invalid credentials" */
+     *  1- Http response code is 404 / http_not_found.
+     *  2- Json message contains "Customer not found / Invalid credentials". */
     @Test
     @DisplayName("Wrong password")
     public void testWrongPassword(){
@@ -90,12 +90,12 @@ public class LoginTest extends JerseyTest {
         assertTrue(body.contains("Customer not found / Invalid credentials"));
     }
 
-    /** Test if the request of a connection fail with a wrong couple login/password witch are both good for two different
-     *  customers by returning a 404 response code
+    /** Test if the request of a connection fail and return a 404 response code if provided with a wrong couple
+     *  login/password witch are both good for two different customers.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found */
+     *  1- Http response code is 404 / http_not_found. */
     @Test
     @DisplayName("Wrong couple login password")
     public void testWrongCoupleLoginPassword(){
@@ -109,7 +109,7 @@ public class LoginTest extends JerseyTest {
         assertEquals(404, response.getStatus());
     }
 
-    /** Test if the request of a connection fail with an empty password by returning a 404 response code
+    /** Test if the request of a connection fail with an empty password by returning a 404 response code.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -127,11 +127,11 @@ public class LoginTest extends JerseyTest {
         assertEquals(404, response.getStatus());
     }
 
-    /** Test if a 404 error occur during a logging request with a empty logging
+    /** Test if a 404 error occur during a logging request with a empty logging.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found */
+     *  1- Http response code is 404 / http_not_found. */
     @Test
     @DisplayName("Login empty")
     public void testEmptyLogin(){
@@ -144,11 +144,11 @@ public class LoginTest extends JerseyTest {
         assertEquals(404, response.getStatus());
     }
 
-    /** Test if the request of a connection fail with a wrong login by returning a 404 response code
+    /** Test if the request of a connection fail with a wrong login by returning a 404 response code.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found */
+     *  1- Http response code is 404 / http_not_found. */
     @Test
     @DisplayName("Login wrong")
     public void testWrongLogin(){

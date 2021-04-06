@@ -42,7 +42,7 @@ public class AddTest extends JerseyTest {
      *  1- Build and execute request.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- Requested item is present in requested quantity in user basket */
+     *  2- Requested item is present in requested quantity in user basket. */
     @Test
     @DisplayName("Valid product is added to valid user with correct amount")
     public void testAddProductOK(){
@@ -68,7 +68,7 @@ public class AddTest extends JerseyTest {
      *  1- Build and execute request.
      *  Expected :
      *  1- Http response code is 404 / http_not_found.
-     *  2- Json message contains "Account not found" */
+     *  2- Json message contains "Account not found". */
     @Test
     @DisplayName("Invalid user")
     public void testAddProductUnknownUid() {
@@ -88,7 +88,7 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found */
+     *  1- Http response code is 404 / http_not_found. */
     @Test
     @DisplayName("Empty uid")
     public void testAddProductEmptyUid() {
@@ -106,7 +106,7 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / http_bad_request */
+     *  1- Http response code is 400 / http_bad_request. */
     @Test
     @DisplayName("Wrong uid format")
     public void testAddProductLettersUid() {
@@ -127,8 +127,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / http_bad_request
-     *  2- Customer basket remains empty */
+     *  1- Http response code is 400 / http_bad_request.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Add too much quantity of a product")
     public void testAddProductTooMuch() {
@@ -147,8 +147,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / http_bad_request
-     *  2- Customer basket remains empty */
+     *  1- Http response code is 400 / http_bad_request.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Wrong amount format")
     public void testAddProductLettersAmount() {
@@ -167,8 +167,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / http_bad_request
-     *  *  2- Customer basket remains empty */
+     *  1- Http response code is 400 / http_bad_request.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Empty amount")
     public void testAddProductEmptyAmount() {
@@ -192,7 +192,7 @@ public class AddTest extends JerseyTest {
      *  Expected :
      *  1- Http response code is 404 / http_not_found.
      *  2- Json message contains "Product not found".
-     *  3- User basket remains empty */
+     *  3- User basket remains empty. */
     @Test
     @DisplayName("Invalid product")
     public void testAddProductUnknownPid() {
@@ -213,8 +213,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found
-     *  2- Customer basket remains empty */
+     *  1- Http response code is 404 / http_not_found.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Empty pid")
     public void testAddProductEmptyPid() {
@@ -233,8 +233,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / http_bad_request
-     *  2- Customer basket remains empty */
+     *  1- Http response code is 400 / http_bad_request.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Wrong pid format")
     public void testAddProductLettersPid() {
@@ -256,8 +256,8 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found
-     *  2- Customer basket remains empty */
+     *  1- Http response code is 404 / http_not_found.
+     *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Added path param")
     public void testAddProductAddedPathParam() {

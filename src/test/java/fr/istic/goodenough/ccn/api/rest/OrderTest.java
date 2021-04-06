@@ -8,7 +8,6 @@ import org.glassfish.jersey.test.JerseyTest;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 // JUnit 4 Test helper
@@ -16,9 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 // JUnit 5 Assertions (!!!)
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
-import java.util.Map;
-import fr.istic.goodenough.ccn.api.data.PhonyData;
 import fr.istic.goodenough.ccn.api.engine.Product;
 import org.junit.jupiter.api.DisplayName;
 
@@ -39,12 +35,12 @@ public class OrderTest extends JerseyTest {
 
     /** Test if the customer basket is correctly emptied by the api call on /order with a valid uid as param.
      *  Init :
-     *  1- Add products in the customer basket directly into the engine
+     *  1- Add products in the customer basket directly into the engine.
      *  2- Build and execute request.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- Customer basket is empty
-     *  3- Products are NOT back in stock */
+     *  2- Customer basket is empty.
+     *  3- Products are NOT back in stock. */
     @Test
     @DisplayName("Customer basket is empty after order")
     public void testOrderOk(){
@@ -66,9 +62,7 @@ public class OrderTest extends JerseyTest {
 
 
         // Customer basket is empty
-        engine.getCustomer(1).get().getPendingOrders().forEach(product -> {
-            assertEquals(0, product.getProduct().getStock());
-        });
+        engine.getCustomer(1).get().getPendingOrders().forEach(product -> assertEquals(0, product.getProduct().getStock()));
 
         // Customer products are back in stock
         assertEquals(5,product1.getStock());
@@ -79,7 +73,7 @@ public class OrderTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 400 / bad_request */
+     *  1- Http response code is 400 / bad_request. */
     @Test
     @DisplayName("Customer basket is not ordered with invalid uid")
     public void testOrderInvalidUid(){
@@ -117,7 +111,7 @@ public class OrderTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found */
+     *  1- Http response code is 404 / http_not_found. */
     @Test
     @DisplayName("Customer basket is not ordered with empty uid")
     public void testOrderEmptyUid(){
@@ -174,12 +168,12 @@ public class OrderTest extends JerseyTest {
     /** Test if the customer basket is correctly ordered and products NOT put back in stock by the api call on /order
      *  with a valid uid as param and added attribute.
      *  Init :
-     *  1- Add a product in the customer basket directly into the engine
+     *  1- Add a product in the customer basket directly into the engine.
      *  2- Build and execute request.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- Customer basket is empty
-     *  3- Products are NOT back in stock */
+     *  2- Customer basket is empty.
+     *  3- Products are NOT back in stock. */
     @Test
     @DisplayName("Customer basket is cleared and products are back in stock")
     public void testOrderOkAttributeAdded(){
@@ -203,9 +197,7 @@ public class OrderTest extends JerseyTest {
         assertEquals(200, response.getStatus());
 
         // Customer basket is empty
-        engine.getCustomer(1).get().getPendingOrders().forEach(product -> {
-            assertEquals(0, product.getProduct().getStock());
-        });
+        engine.getCustomer(1).get().getPendingOrders().forEach(product -> assertEquals(0, product.getProduct().getStock()));
 
         // Customer products are back in stock
         assertEquals(5,product1.getStock());
@@ -227,6 +219,4 @@ public class OrderTest extends JerseyTest {
                 .put(Entity.text(""));
         assertEquals(400, response.getStatus()); // Assert bad_request
     }
-
-
 }

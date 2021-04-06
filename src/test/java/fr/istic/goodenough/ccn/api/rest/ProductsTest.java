@@ -31,9 +31,9 @@ public class ProductsTest extends JerseyTest {
      *  3- Build reference product list from CSV.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- DTO list and reference list contains the same number of items
-     *  3- All product ID in DTO list are present in reference list
-     *  4- All product data in DTO are equals to reference data */
+     *  2- DTO list and reference list contains the same number of items.
+     *  3- All product ID in DTO list are present in reference list.
+     *  4- All product data in DTO are equals to reference data. */
     @Test
     @DisplayName("Product list is returned and equals to reference data")
     public void testGetProductsOk() {
@@ -63,14 +63,14 @@ public class ProductsTest extends JerseyTest {
      *  the reference CSV data even if there is a useless attribut.
      *  Init :
      *  1- Build and execute request.
-     *  2- Add an other queryParam
+     *  2- Add an other queryParam.
      *  3- Build DTO list from JSON.
      *  4- Build reference product list from CSV.
      *  Expected :
      *  1- Http response code is 200 / http_ok.
-     *  2- DTO list and reference list contains the same number of items
-     *  3- All product ID in DTO list are present in reference list
-     *  4- All product data in DTO are equals to reference data */
+     *  2- DTO list and reference list contains the same number of items.
+     *  3- All product ID in DTO list are present in reference list.
+     *  4- All product data in DTO are equals to reference data. */
     @Test
     @DisplayName("Add attributes to product list")
     public void testGetProductOkWithAttribute() {
@@ -97,7 +97,7 @@ public class ProductsTest extends JerseyTest {
         }
     }
 
-    /** Test if the product list returned by the api call on /products path with a non integer uid as param
+    /** Test if the product list returned by the api call on /products path with a non integer uid as param.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -112,7 +112,7 @@ public class ProductsTest extends JerseyTest {
         assertEquals(400, response.getStatus()); // HTTP_BAD_REQUEST
     }
 
-    /** Test if the product list returned by the api call on /products path with an empty uid as param
+    /** Test if the product list returned by the api call on /products path with an empty uid as param.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -127,11 +127,11 @@ public class ProductsTest extends JerseyTest {
         assertEquals(400, response.getStatus()); // Assert HTTP_BAD_REQUEST
         }
 
-    /** Test if a 401 error occur during a product request with a wrong uid
+    /** Test if a 401 error occur during a product request with a wrong uid.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 401 HTTP_UNAUTHORIZED
+     *  1- Http response code is 401 HTTP_UNAUTHORIZED.
      * */
     @Test
     @DisplayName("Wrong uid")
@@ -143,7 +143,7 @@ public class ProductsTest extends JerseyTest {
         assertEquals(401, response.getStatus()); // Assert HTTP_UNAUTHORIZED
     }
 
-    /** Test if a 404 error occur during a product request with an add of path param
+    /** Test if a 404 error occur during a product request with a supplementary path param.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -159,11 +159,11 @@ public class ProductsTest extends JerseyTest {
         assertEquals(404, response.getStatus()); // Assert HTTP_NOT_FOUND
     }
 
-    /** Test if a 404 error occur during a product request with a wrong queryParam
+    /** Test if a 404 error occur during a product request with a wrong queryParam.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found
+     *  1- Http response code is 404 / http_not_found.
      * */
     @Test
     @DisplayName("Use a wrong queryParam")
