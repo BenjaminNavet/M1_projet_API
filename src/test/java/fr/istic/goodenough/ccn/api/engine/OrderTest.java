@@ -117,8 +117,11 @@ class OrderTest {
     }
 
     /** RobustnessTest : Try to set the amount of an order with bad value
-     * Asserts a setting amount with outlier data causes false response and does not modify amount
-     * test with a product stock limited to 5 */
+     * Init : Create a product prod 2 and a order order2
+     * Action : Set the amount with outlier data
+     * Expected :
+     *   setAmount() is false
+     *   the amount is 5 and is not modify */
     @ParameterizedTest(name = "Limited stock : Amount is {0} and answer is {1}")
     @CsvSource({"-1,1","6,1"})
     @Tag("RobustnessTest")
@@ -130,15 +133,23 @@ class OrderTest {
         assertEquals(rep, order2.getAmount());
     }
 
-    /** test the getter for order's price */
+    /** Test the getter for order's price
+     *  Init : Setup()
+     *  Action : Get the order amount and multiply it by its price
+     *  Expect : Get the good Order price */
     @Test
     @Tag("UnitTest")
     void getOrderPrice() {
         assertEquals(order.getAmount()*prod.getPrice(), order.getOrderPrice());
     }
 
-    /** test the deletion of amount in the order.
-     * test is repeated on empty order */
+    /** Test the deletion of amount in the order.
+     * Init : Setup()
+     * Action : Cancel the order
+     * Expect : The order is empty
+     *   The order amount is 0
+     *   The order price is 0
+     *   The product still present */
     @RepeatedTest(2)
     @Tag("UnitTest")
     void cancel() {
