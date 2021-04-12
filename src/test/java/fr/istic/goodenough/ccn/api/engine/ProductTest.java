@@ -1,6 +1,7 @@
 package fr.istic.goodenough.ccn.api.engine;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,6 +26,7 @@ class ProductTest {
      *  */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Return the pid of the product conform to the setup")
     void getPid() {
         assertEquals(1004, product.getPid(), "The pid should be the same as 1004");
     }
@@ -43,18 +45,24 @@ class ProductTest {
         assertEquals("Jambon fromage", product.getFullName(), "The full name should be the same as \"Jambon fromage\"");
     }
 
-    /** Try to get the short name of a product
-     * Asserts that the short name is equal to "Jam/From" */
+    /** Test if the short name of a product returned by getShortName() is the same as initiated in setup: "Jam/From"
+     * Init: nothing more than setup
+     * Expected : return short name of the product as "Jam/From"
+     */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Return the short name conform to the product setup")
     void getShortName() {
         assertEquals("Jam/From", product.getShortName(), "The short name should be the same as \"Jam/From\"");
     }
 
-    /** Try to get the price of a product
-     * Asserts that the price is equal to 10.0 */
+    /** Test if the price of a product returned by getPrice() is the same as initiated setup : 10.0
+     * Init: nothing more than setup
+     * Expected : return price of the product as 10.0
+     */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Return the price conform to the product setup")
     void getPrice() {
         assertEquals(10.0, product.getPrice(), "The price should be the same as 10.0");
     }
@@ -71,10 +79,13 @@ class ProductTest {
         assertEquals(-1, product.getStock(), "The stock should be the same as -1");
     }
 
-    /** Try to get the type of a product
-     * Asserts that the type is equal to "nourriture" */
+    /** Test if the type of a product returned by getType() is the same as initiated setup : "nourriture"
+     * Init : nothing more than setup
+     * Expected : return type of the product as "nourriture"
+     */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Return the product's type conform to the product setup")
     void getType() {
         assertEquals("nourriture", product.getType(), "The type should be the same as \"nourriture\"");
     }
@@ -99,13 +110,15 @@ class ProductTest {
         assertEquals(oldStock,newStock);
     }
 
-    /** Try to take -1 product from unlimited stock
-     * Assert that it's not possible
+    /** Test if the takeFromStock() method doesn't change the stock when we ask to take -1 product from unlimited stock
+     * Init : set quantity to take from stock at -1
+     * Expected : the old stock and the newStock are equals (takeFromStock() doesn't change anything)
      * @param amount int Product's amount */
     @ParameterizedTest(name = "Amount is {0} but is bad value")
     @CsvSource({"-1"})
     @Tag("RobustnessTest")
-    void takeFromWithUnlimitedStockRobustness(int amount) {
+    @DisplayName("Test to takeFromStock() on unlimited stock : try to take -1 product (Not possible)")
+    void takeFromStockWithUnlimitedStockRobustness(int amount) {
         int oldStock=product.getStock();
         assertFalse(product.takeFromStock(amount));
         int newStock=product.getStock();
@@ -135,12 +148,17 @@ class ProductTest {
         assertEquals(oldStock-amount,newStock);
     }
 
-    /** Try to take outlier amount from limited stock
-     * Assert that it's not possible
+    /** Test if the takeFromStock() method doesn't change the stock when we ask to take -1, 6 and 800000 product from limited stock
+     * Init :
+     * - set quantity to take from stock at -1
+     * - set quantity to take from stock at 6
+     * - set quantity to take from stock at 800000
+     * Expected :  the old stock and the newStock are equals (takeFromStock() doesn't change anything because it's not possible to do)
      * @param amount int Product's amount */
     @ParameterizedTest(name = "Amount is {0} but is bad value")
     @CsvSource({"-1","6","800000"})
     @Tag("RobustnessTest")
+    @DisplayName("Test to takeFromStock() on limited stock : try to take -1, 6 and 800000 product(s) (Not possible)")
     void takeFromWithLimitedStockRobustness(int amount) {
         int oldStock=product2.getStock();
         assertFalse(product2.takeFromStock(amount));
@@ -148,12 +166,17 @@ class ProductTest {
         assertEquals(oldStock,newStock);
     }
 
-    /** Try to put products in unlimited stock
-     * Assert that stock hasn't been changed
+    /** Test if the putInStock() method doesn't change the stock when we ask to put 0, 2 and 800000 product(s) in unlimited stock
+     * Init:
+     * - set quantity to put in stock at 0
+     * - set quantity to put in stock at 2
+     * - set quantity to put in stock at 800000
+     * Expected : the old stock and the newStock are equals (because it's an unlimited stock)
      * @param amount int Product's amount */
     @ParameterizedTest(name = "Amount is {0} and newStock=oldStock")
     @CsvSource({"0","2","800000"})
     @Tag("UnitTest")
+    @DisplayName("Test to putInStock() on unlimited stock : try to put 0,2 and 800000 product(s) (Not possible)")
     void putInStockWithUnlimitedStockUnit(int amount) {
         int oldStock=product.getStock();
         assertTrue(product.putInStock(amount));
@@ -174,6 +197,7 @@ class ProductTest {
     @ParameterizedTest(name = "Amount is {0} and newStock=oldStock+Amount")
     @CsvSource({"0","2","5"})
     @Tag("UnitTest")
+    @DisplayName("Test to putInStock() on limited stock : try to put 0, 2 and 5 product(s)")
     void putInStockWithlimitedStockUnit(int amount) {
         int oldStock=product2.getStock();
         assertTrue(product2.putInStock(amount));
