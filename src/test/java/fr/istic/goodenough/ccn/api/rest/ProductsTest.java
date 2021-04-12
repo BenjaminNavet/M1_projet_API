@@ -97,7 +97,7 @@ public class ProductsTest extends JerseyTest {
         }
     }
 
-    /** Test if the product list returned by the api call on /products path with a non integer uid as param.
+    /** Test if a 401 error occure during a product request with a wrong uid as param
      *  Init :
      *  1- Build and execute request.
      *  Expected :
@@ -112,7 +112,7 @@ public class ProductsTest extends JerseyTest {
         assertEquals(400, response.getStatus()); // HTTP_BAD_REQUEST
     }
 
-    /** Test if the product list returned by the api call on /products path with an empty uid as param.
+    /** Test if a 401 error occure during a product request with an empty uid as param
      *  Init :
      *  1- Build and execute request.
      *  Expected :
