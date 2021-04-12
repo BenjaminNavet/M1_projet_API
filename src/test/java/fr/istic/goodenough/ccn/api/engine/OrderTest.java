@@ -26,46 +26,73 @@ class OrderTest {
     }
 
     /** Try to get the customer from an order
-     * Asserts that the customer is equal to the Order's costumer */
+     * Asserts that the customer is equal to the Order's costumer
+     * Init :
+     * - Creation of the custumer cust
+     * - Creation of the product prod
+     * - Creation of the order from prod and cust
+     * Action :
+     *      * getCustomer()
+     * Expected :
+     *      * order.getCustomer == cust
+     */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Recuperation customer")
     void getCustomer() {
         assertEquals(cust, order.getCustomer(), "The customer should be the same as Jean Hubert");
     }
 
     /** Try to get the product from an order
-     * Asserts that the product is equal to the Order's product */
+     * Init : Setup
+     * action : nothing more
+     * Expected the product is equal to the Order's product */
     @Test
     @Tag("UnitTest")
+    @DisplayName("Recuperation produit")
     void getProduct() {
         assertEquals(prod, order.getProduct(),"The product should be the same as Jambon fromage");
     }
 
     /** Try to get the amount form an order
-     * Asserts that the amount is equal to 0 */
+     * Init : Setup()
+     * action : nothing more
+     * Expected the amount of order.getAmount() is equal to 0 */
     @Test
     @Tag("UnitTest")
+    @DisplayName("fetch the quantity")
     void getAmount() {
         assertEquals(1, order.getAmount(), "The amount should be 0");
     }
 
     /** Try to set the amount of an order
      * Asserts that the amount is well-set
-     * test with an unlimited product stock */
+     * init : Setup()
+     * action :
+     * SetAmount() from paramater
+     * test with an unlimited product stock
+     * Expected :
+     * setAmount() == True
+     * getAmount() == True
+     */
     @ParameterizedTest(name = "Amount is {0} and answer is {1}")
     @CsvSource({"0,0","2,2","800000,800000"})
     @Tag("UnitTest")
+    @DisplayName("Amount manipulation")
     void setAmountUnlimitedStockUnit(int amount, int rep) {
         assertTrue(order.setAmount(amount));
         assertEquals(rep, order.getAmount());
     }
 
     /** RobustnessTest : Try to set the amount of an order with bad value
-     * Asserts a setting amount with outlier data causes false response and does not modify amount
-     * test with an unlimited product stock */
+     * Init : setup()
+     * Action : set a amount with outlier data
+     * Expect : causes false response and does not modify amount
+     */
     @ParameterizedTest(name = "Amount is {0} and answer is {1}")
     @CsvSource({"-1,1"})
     @Tag("RobustnessTest")
+    @DisplayName("Amount Robustness")
     void setAmountUnlimitedStockRobustness(int amount, int rep) {
         assertFalse(order.setAmount(amount));
         assertEquals(rep, order.getAmount());
@@ -73,11 +100,14 @@ class OrderTest {
 
 
     /** Try to set the amount of an order
-     * Asserts that the amount is well-set
-     * test with a product stock limited to 5 */
+     * Init : create a product prod 2 and a order order2
+     * Action : set the amount at 1
+     * Expect : the amount is 1
+     */
     @ParameterizedTest(name = "Limited stock : Amount is {0} and answer is {1}")
     @CsvSource({"0,0","2,2"})
     @Tag("UnitTest")
+    @DisplayName("Amount test")
     void setAmountLimitedStockUnit(int amount, int rep){
         Product prod2 = new ProductImpl(1004, "Jambon fromage", "Jam/From", 10.0, 5, "nourriture");
         Order order2 = new OrderImpl(prod2,cust);
