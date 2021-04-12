@@ -26,8 +26,9 @@ class CustomerTest {
 //        order = new  OrderImpl (product0, customer, 2);
     }
 
-    /** Check the cutomer's Uid
-     * Assert that returned object have the right values */
+    /** Test if the customer's Uid returned by the getUid method is the same as initiated in setup.
+     * Init : nothing more than setup.
+     * Expected : uid entered and uid of customer must be the same (int 1). */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check Uid")
@@ -35,8 +36,9 @@ class CustomerTest {
         assertEquals(customer.getUid(), 1);
     }
 
-    /** Check the cutomer's name
-     * Assert that returned object have the right values */
+    /** Test if the customer's name returned by the getName method is the same as initiated in setup.
+     * Init : nothing more than setup.
+     * Expected : name entered and name of customer must be the same. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check Name")
@@ -44,8 +46,9 @@ class CustomerTest {
         assertEquals(customer.getName(), "Hubert");
     }
 
-    /** Check the cutomer's password
-     * Assert that returned object have the right values */
+    /** Test if the customer's password returned by the getPasswd method is the same as initiated in setup.
+     * Init : nothing more than setup.
+     * Expected : password entered and password of customer must be the same. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check Password")
@@ -53,8 +56,9 @@ class CustomerTest {
         assertEquals(customer.getPasswd(), "nutella");
     }
 
-    /** Check the cutomer's credit
-     * Assert that returned object have the right values */
+    /** Test if the customer's credit returned by the getCredit method is the same as initiated in constructor.
+     * Init : nothing more than setup.
+     * Expected : credit must be at -1. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check Credit")
@@ -62,8 +66,9 @@ class CustomerTest {
         assertEquals(customer.getCredit(), -1);
     }
 
-    /** Check the customer's pendingOrders
-     * Assert that returned object is empty */
+    /** Test if the customer's PendingOrder returned by the getPendingOrders method is empty after initialization.
+     * Init : nothing more than setup.
+     * Expected : PendingOrder must be empty. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check if PendingOrders is empty")
@@ -71,8 +76,14 @@ class CustomerTest {
         assertTrue(customer.getPendingOrders().isEmpty());
     }
 
-    /** Check the customer's pendingOrders
-     * Assert that returned object with the good value */
+    /** Test if the customer's PendingOrder returned by the getPendingOrders method has been correctly filled with
+     * the given values of 1 product added.
+     * Init : add a product with addProduct method.
+     * Expected :
+     * 1 - the addProduct method must have worked.
+     * 2 - the product returned by the getProduct method must match the one entered in the addProduct method.
+     * 3 - the customer returned by the getCustomer method must match the one who added the product in his order.
+     * 4 - the amount of products returned by the getAmount method must match the one entered in the addProduct method. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check single PendingOrders")
@@ -84,8 +95,16 @@ class CustomerTest {
         assertEquals(order.getAmount(), 4);
     }
 
-    /** Check the customer's pendingOrders
-     * Assert that returned object with the goods values */
+    /** Test if the customer's PendingOrder returned by the getPendingOrders method has been correctly filled with
+     * the given values of 2 product added.
+     * Init :
+     * 1 - create a new product.
+     * 2 - add 2 products with addProduct method.
+     * Expected for each product added:
+     * 1 - the addProduct method must have worked.
+     * 2 - the product returned by the getProduct method must match the one entered in the addProduct method.
+     * 3 - the customer returned by the getCustomer method must match the one who added the product in his order.
+     * 4 - the amount of products returned by the getAmount method must match the one entered in the addProduct method. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Check multiple PendingOrders")
@@ -106,9 +125,11 @@ class CustomerTest {
             }
         }
     }
-
-    /** Try to add an unlimited product
-     * Assert that returned true that the product has been added and that the stock is -1 */
+    /** Test the addition of an unlimited product.
+     * Init : create new product with unlimited stock.
+     * Expected :
+     * 1 - the addProduct method must have worked for the created product.
+     * 2 - the stock of products returned by the getStock method must not have been modified. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Add product with an unlimited stock")
@@ -118,8 +139,11 @@ class CustomerTest {
         assertEquals(product1.getStock(), -1);
     }
 
-    /** Try to add a limited product
-     * Assert that returned true that the product has been added and that the stock has been updated */
+    /** Test the addition of a limited product.
+     * Init : create new product with limited stock.
+     * Expected :
+     * 1 - the addProduct method must have worked for the created product.
+     * 2 - the stock of products returned by the getStock method must have been updated, must match (intialStock-amount). */
     @Test
     @Tag("UnitTest")
     @DisplayName("Add product with a limited stock")
@@ -129,9 +153,18 @@ class CustomerTest {
         assertEquals(product1.getStock(), 1);
     }
 
-    /** Try to add a limited product
-     * Assert that the stock and the amount are correctly updated
-     * Assert that the getPendingOrders returned the good object*/
+    /** Test the addition of a limited product and increase the amount.
+     * Init :
+     * 1 - create a new product with limited stock.
+     * 2 - increase the amount of the product taken.
+     * Expected :
+     * 1 - the addProduct method must have worked for the created product.
+     * 2 - the stock of products returned by the getStock method must have been updated, must match (intialStock-amount).
+     * 2 - the addProduct method must have worked with the amount changes.
+     * 3 - the product returned by the getProduct method must match the one entered in the addProduct method.
+     * 4 - the customer returned by the getCustomer method must match the one who added the product in his order.
+     * 5 - the amount of products returned by the getAmount method must match the last one entered in the addProduct method.
+     * 6 - the stock of products returned by the getStock method must have been updated, must match (intialStock-lastAmount). */
     @Test
     @Tag("UnitTest")
     @DisplayName("Change the product's amount, take from stock")
@@ -147,9 +180,18 @@ class CustomerTest {
         assertEquals(product1.getStock(), 1);
     }
 
-    /** Try to add a limited product
-     * Assert that the stock and the amount are correctly updated
-     * Assert that the getPendingOrders returned the good object*/
+    /** Test the addition of a limited product and decrease the amount.
+     * Init :
+     * 1 - create a new product with limited stock.
+     * 2 - decrease the amount of the product taken.
+     * Expected :
+     * 1 - the addProduct method must have worked for the created product.
+     * 2 - the stock of products returned by the getStock method must have been updated, must match (intialStock-amount).
+     * 2 - the addProduct method must have worked with the amount changes.
+     * 3 - the product returned by the getProduct method must match the one entered in the addProduct method.
+     * 4 - the customer returned by the getCustomer method must match the one who added the product in his order.
+     * 5 - the amount of products returned by the getAmount method must match the last one entered in the addProduct method.
+     * 6 - the stock of products returned by the getStock method must have been updated, must match (intialStock-lastAmount). */
     @Test
     @Tag("UnitTest")
     @DisplayName("Change the product's amount, and test the method putInStock of ProductImpl class")
@@ -166,8 +208,11 @@ class CustomerTest {
         assertEquals(product1.getStock(), 3);
     }
 
-    /** Check the customer's orders
-     * Assert that returned true when customer ordered */
+    /** Test that the order method works when ordering a product.
+     * Init :
+     * 1 - add a product with addProduct method.
+     * 2 - Order with order method.
+     * Expected : the order must have been carried out correctly. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Order done with product")
@@ -176,9 +221,18 @@ class CustomerTest {
         assertTrue (customer.order());
     }
 
-    /** Try to cancel a customer's order, we assert the product are substracted from there stock by the addProduct
-     *  then that they are put back in stock by the clear.
-     * Assert that order had been clear and that the stock had been updated*/
+    /** Tests the canceling of a customer's order if it is empty, and that the products return to the stock with the clear method.
+     *  Init :
+     *  1 - create 3 products with limited stock.
+     *  2 - add all 3 products to the customer's pendingOrder.
+     *  3 - clear the customer's pendingOrder.
+     *  4 - order with the order method.
+     *  Expected :
+     *  1 - the 3 addProduct methods must have worked for the 3 created products.
+     *  2 - the 3 different product stocks have been correctly updated (intial stock - Amount of products taken).
+     *  3 - the order must not be possible.
+     *  4 - the pendingOrder returned with the getPendingOrders method must be empty.
+     *  5 - the 3 different product stocks must have the same amount of products as initially. */
     @Test
     @Tag("UnitTest")
     @DisplayName("Clear test")
@@ -194,14 +248,17 @@ class CustomerTest {
         assertEquals(product2.getStock(),1);
         customer.clear();
         assertFalse(customer.order());
-        assertEquals(true, customer.getPendingOrders().isEmpty());
+        assertTrue(customer.getPendingOrders().isEmpty());
         assertEquals(product0.getStock(),20);
         assertEquals(product1.getStock(),12);
         assertEquals(product2.getStock(),4);
     }
 
-    /** Try to add product that overtake the stock
-     *  Assert false that product could not be add*/
+    /** Tests the addition of products in incorrect quantities.
+     * Init : create a new product with limited stock.
+     * Expected :
+     * 1 - the addition of products in amounts exceeding the available stock must not be possible.
+     * 2 - the addition of products in negative quantities must not be possible. */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid add product")
@@ -211,8 +268,11 @@ class CustomerTest {
         assertFalse(customer.addProduct(product0, -1));
     }
 
-    /** Try to order a empty basket
-     * Assert false, the basket is empty so it is not possible to order*/
+    /** Tests the canceling of a customer's order if it is empty.
+     * Init : nothing more than setup.
+     * Expected :
+     * 1 - no products must have been added to the customer's pendingOrder.
+     * 2 - the order must not be possible with a empty basket. */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid order")

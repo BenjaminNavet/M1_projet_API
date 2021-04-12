@@ -26,7 +26,11 @@ class EngineTest {
     }
 
     /** Try to get a customer by uid from engine.
-     * Assert that they have the right params */
+     *  Init :
+     *  1- Get a customer by uid from engine
+     *  Expected :
+     *  1- Customer exists
+     *  2- Customer has the right uid, name and password */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get valid customer")
@@ -39,7 +43,10 @@ class EngineTest {
     }
 
     /** Try to get a customer by uid from engine.
-     * Assert that they have the right params */
+     *  Init :
+     *  1- Get an invalid customer from engine
+     *  Expected :
+     *  1- Customer does not exist */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid customer")
@@ -49,7 +56,11 @@ class EngineTest {
     }
 
     /** Try to get a customer by name and passwd from engine.
-     * Assert that the returned object has the right name and the right passwd */
+     *  Init :
+     *  1- Get a customer by name and password from engine
+     *  Expected :
+     *  1- Customer exists
+     *  2- Customer has the right uid, name and password */
     @ParameterizedTest
     @Tag("UnitTest")
     @DisplayName("Get customer by valid credential")
@@ -63,7 +74,10 @@ class EngineTest {
     }
 
     /** Try to get a false customer by name and passwd from engine.
-     * Assert that an empty optional object is returned */
+     *  Init :
+     *  1- Get an invalid customer by name and password from engine
+     *  Expected :
+     *  1- Customer does not exist */
     @ParameterizedTest
     @Tag("RobustnessTest")
     @DisplayName("Get customer by invalid credentials")
@@ -74,7 +88,11 @@ class EngineTest {
     }
 
     /** Try to get a product by pid from engine.
-     * Asserts that returned object have the right values */
+     *  Init :
+     *  1- Get a valid product by pid from engine
+     *  Expected :
+     *  1- Product exists
+     *  2- Product has the right values */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get valid product")
@@ -90,7 +108,10 @@ class EngineTest {
     }
 
     /** Try to get a product by pid from engine.
-     * Asserts that returned object is empty */
+     *  Init :
+     *  1- Get an invalid product by pid from engine
+     *  Expected :
+     *  1- Product does not exist */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Get invalid product")
@@ -100,7 +121,11 @@ class EngineTest {
     }
 
     /** Try to get all products from engine.
-     * Asserts that all the data samples are provided by checking keys from the reference map */
+     *  Init :
+     *  1- Get all products from engine with getAllProducts()
+     *  2- Check the keys from the reference map on the returned collection
+     *  Expected :
+     *  1- All the data samples are provided */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get all products")
@@ -113,17 +138,26 @@ class EngineTest {
     }
 
     /** Try to delete the content of the collection returned by getAllProducts().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all products from engine with getAllProducts()
+     *  2- Clear the returned collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Clear products collection")
     void testGetAllProductsClear(){
         Collection<Product> engineProducts = engine.getAllProducts();
+        
         assertThrows(UnsupportedOperationException.class, engineProducts::clear);
     }
 
     /** Try to add a new product to the collection returned by getAllProducts().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all products from engine with getAllProducts()
+     *  2- Add a product to the collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Add product in collection")
@@ -134,7 +168,11 @@ class EngineTest {
     }
 
     /** Try to remove a product from the collection returned by getAllProducts().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all products from engine with getAllProducts()
+     *  2- Remove a product from the collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Remove product in collection")
@@ -145,7 +183,11 @@ class EngineTest {
     }
 
     /** Try to get all customers from engine.
-     * Asserts that all the data samples are provided by checking keys from the reference map */
+     *  Init :
+     *  1- Get all customers from engine with getAllCustomers()
+     *  2- Check the keys from the reference map on the returned collection
+     *  Expected :
+     *  1- All the data samples are provided */
     @Test
     @Tag("UnitTest")
     @DisplayName("Get all customers")
@@ -158,7 +200,11 @@ class EngineTest {
     }
 
     /** Try to delete the content of the collection returned by getAllCustomers().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all customers from engine with getAllCustomers()
+     *  2- Clear the returned collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Clear customers collection")
@@ -168,7 +214,11 @@ class EngineTest {
     }
 
     /** Try to add a new customer to the collection returned by getAllCustomers().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all customers from engine with getAllCustomers()
+     *  2- Add a customer to the collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Add customer in collection")
@@ -179,7 +229,11 @@ class EngineTest {
     }
 
     /** Try to remove a customer from the collection returned by getAllCustomers().
-     * Assert the operation is unsupported and throws an exception */
+     *  Init :
+     *  1- Get all customers from engine with getAllCustomers()
+     *  2- Remove a customer from the collection
+     *  Expected :
+     *  1- Operation fails and throws UnsupportedOperationException */
     @Test
     @Tag("RobustnessTest")
     @DisplayName("Remove customer in collection")
