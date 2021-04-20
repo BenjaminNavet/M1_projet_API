@@ -1,5 +1,6 @@
 package fr.istic.goodenough.ccn.api.rest;
 
+import fr.istic.goodenough.ccn.api.rest.dto.ProductDTO;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import javax.ws.rs.core.Application;

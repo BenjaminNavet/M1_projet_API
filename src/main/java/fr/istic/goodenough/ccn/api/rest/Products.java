@@ -13,10 +13,11 @@ import fr.istic.goodenough.ccn.api.engine.Customer;
 import fr.istic.goodenough.ccn.api.engine.Product;
 import fr.istic.goodenough.ccn.api.engine.Engine;
 import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
+import fr.istic.goodenough.ccn.api.rest.dto.ProductDTO;
 
 @Singleton
 @Path("products")
-public class Products {
+public class  Products {
 
     private final Engine engine;
 

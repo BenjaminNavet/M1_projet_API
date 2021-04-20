@@ -4,6 +4,7 @@ import java.util.Optional;
 import fr.istic.goodenough.ccn.api.engine.Customer;
 import fr.istic.goodenough.ccn.api.engine.Engine;
 import fr.istic.goodenough.ccn.api.engine.EnginePhonyImpl;
+import fr.istic.goodenough.ccn.api.rest.dto.CustomerDTO;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;

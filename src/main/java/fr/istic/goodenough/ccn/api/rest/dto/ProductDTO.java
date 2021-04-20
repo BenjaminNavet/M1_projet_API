@@ -1,10 +1,6 @@
-package fr.istic.goodenough.ccn.api.rest;
-
-
-import javax.xml.bind.annotation.XmlRootElement;
+package fr.istic.goodenough.ccn.api.rest.dto;
 
 /** Data transfer object for a product */
-@XmlRootElement(name = "Product")
 public class ProductDTO {
     public String pid;
     public String type;
