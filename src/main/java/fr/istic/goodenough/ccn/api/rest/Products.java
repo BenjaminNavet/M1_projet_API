@@ -70,11 +70,4 @@ public class  Products {
                 .entity("{\"message\" : \"You must be logged to access this ressource\"}")
                 .build();
     }
-
-    /*@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{pid}")
-    public ProductDTO getProductById(@PathParam("pid") String productId) {
-        return null; // HACK Return the proper error code instead
-    }*/
 }
