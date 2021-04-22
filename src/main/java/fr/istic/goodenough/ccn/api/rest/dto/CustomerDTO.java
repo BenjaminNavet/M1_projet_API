@@ -1,6 +1,6 @@
 package fr.istic.goodenough.ccn.api.rest.dto;
 
-/** Data transfer object for a product */
+/** Data transfer object for a Customer */
 public class CustomerDTO {
     public String uid;
 

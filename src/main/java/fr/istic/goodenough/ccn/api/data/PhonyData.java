@@ -31,11 +31,11 @@ public class PhonyData {
     /** Generate a map of products from CSV data
      * @return map containing products objects with products id as key */
     public static Map<String, Product> generatePhonyProducts(){
-        Map<String, Product> phonyCustomers = new HashMap<>();
+        Map<String, Product> phonyProducts = new HashMap<>();
         List<String[]> csvContent = readCSV("phonyProducts.csv");
         if (csvContent != null){
             for (String[] line: csvContent) {
-                phonyCustomers.put(line[0], new ProductImpl(
+                phonyProducts.put(line[0], new ProductImpl(
                         Integer.parseInt(line[0]),
                         line[1],
                         line[2],
@@ -43,7 +43,7 @@ public class PhonyData {
                         Integer.parseInt(line[5]),line[3]));
             }
         }
-        return phonyCustomers;
+        return phonyProducts;
     }
 
     /** Read a CSV file from the root compiled project path,
