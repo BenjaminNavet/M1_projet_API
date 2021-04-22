@@ -160,20 +160,20 @@ public class ProductsTest extends JerseyTest {
         assertEquals(404, response.getStatus()); // Assert HTTP_NOT_FOUND
     }
 
-    /** Test if a 404 error occur during a product request with a wrong queryParam.
+    /** Test if a 400 error occur during a product request with a wrong queryParam.
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found.
+     *  1- Http response code is 401 / HTTP_BAD_REQUEST
      * */
     @Test
     @DisplayName("Use a wrong queryParam")
     public void testFakeQueryParam() {
-        Response response= target("/products/pouet")
+        Response response= target("/products")
                 .queryParam("pid", "1")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class);
-        assertEquals(404, response.getStatus()); // Assert HTTP_NOT_FOUND
+        assertEquals(400, response.getStatus()); // Assert HTTP_BAD_REQUEST
     }
 }
 
