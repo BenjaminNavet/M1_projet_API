@@ -89,6 +89,27 @@ public class CustomerImpl implements Customer {
         } else {return false;}
     }
 
+    /** Delete a product from a costomer's pending order
+     *
+     * @param prod Product object to remove from the basket
+     * @return true if a order has been deleted false otherwise
+     */
+    @Override
+    public boolean removeProduct(Product prod){
+        Order toDelete = null;
+        for (Order order : pendingOrders){
+            if(order.getProduct().equals(prod)){
+                order.cancel();
+                toDelete=order;
+            }
+        }
+        if(toDelete!=null){
+            pendingOrders.remove(toDelete);
+            return true;
+        }
+        return false;
+    }
+
     /** "Validate" customer basket and "send" all products to the customer,
      * destroy all related order objects and empty pending order collection.
      * @return true if basket is correctly emptied and products sent to customer, false if basket was empty or order can't be done */

@@ -44,5 +44,12 @@ public interface Customer {
      * @return customer credit*/
     double getCredit();
 
+    /** Delete a product from a costomer's pending order
+     *
+     * @param prod Product object to remove from the basket
+     * @return true if a order has been deleted false otherwise
+     */
+    boolean removeProduct(Product prod);
+
 
 }
