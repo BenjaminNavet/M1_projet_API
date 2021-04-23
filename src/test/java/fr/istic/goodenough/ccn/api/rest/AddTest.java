@@ -213,7 +213,7 @@ public class AddTest extends JerseyTest {
      *  Init :
      *  1- Build and execute request.
      *  Expected :
-     *  1- Http response code is 404 / http_not_found.
+     *  1- Http response code is 400 / http_bad_request.
      *  2- Customer basket remains empty. */
     @Test
     @DisplayName("Empty pid")
